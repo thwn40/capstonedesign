@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,16 +13,13 @@ void enablePlatformOverrideForDesktop() {
   }
 }
 
-
 class search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Search Widget',
-      theme: ThemeData(
-      ),
+      theme: ThemeData(),
       debugShowCheckedModeBanner: false,
-
       home: HomePage(),
     );
   }
@@ -74,8 +70,8 @@ class _HomePageState extends State<HomePage> {
                 queryBuilder: (query, list) {
                   return list
                       .where((item) => item.username
-                      .toLowerCase()
-                      .contains(query.toLowerCase()))
+                          .toLowerCase()
+                          .contains(query.toLowerCase()))
                       .toList();
                 },
                 popupListItemBuilder: (item) {
@@ -97,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               ),
             Text(
               "${_selectedItem != null ? _selectedItem.username : ""
-                  ""}",//no item selected
+                  ""}", //no item selected
             ),
           ],
         ),
