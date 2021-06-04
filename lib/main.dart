@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
 
-        title: Text('우리의주차장!'),
+        title: Text('우리의주차'),
         centerTitle: true, // 타이틀가운데 정렬
         actions: <Widget>[
           IconButton(
