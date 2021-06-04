@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/register.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -11,7 +12,9 @@ import 'package:myapp/Point.dart';
 import 'package:myapp/Parking.dart';
 import 'package:myapp/Settings.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     title: '네비게이션',
     home: LogIn(),
