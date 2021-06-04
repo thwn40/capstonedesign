@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/register.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:myapp/login.dart';
 import 'package:myapp/search.dart';
-import 'package:myapp/register.dart';
+import 'package:myapp/CustomerCenter.dart';
+import 'package:myapp/Guide.dart';
+import 'package:myapp/Notice.dart';
+import 'package:myapp/Point.dart';
+import 'package:myapp/Parking.dart';
+import 'package:myapp/Settings.dart';
 
 void main() {
   runApp(MaterialApp(
