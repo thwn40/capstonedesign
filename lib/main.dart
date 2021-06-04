@@ -3,7 +3,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:myapp/login.dart';
 import 'package:myapp/search.dart';
-import 'package:myapp/register.dart';
+import 'package:myapp/CustomerCenter.dart';
+import 'package:myapp/Guide.dart';
+import 'package:myapp/Notice.dart';
+import 'package:myapp/Point.dart';
+import 'package:myapp/Parking.dart';
+import 'package:myapp/Settings.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -11,7 +16,6 @@ void main() {
     home: LogIn(),
   ));
 }
-
 
 class Second extends StatelessWidget {
   @override
@@ -22,7 +26,9 @@ class Second extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: '주차어때',),
+      home: MyHomePage(
+        title: '주차어때',
+      ),
     );
   }
 }
@@ -38,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+      Completer<WebViewController>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.search),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return search();
-                      }));
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return search();
+              }));
               print('menu button is clicked');
             },
           ),
@@ -72,66 +77,61 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-
           children: <Widget>[
             Container(
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Stack(
-                  children: <Widget>[
-                Align(
-                alignment: Alignment.centerLeft,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    // backgroundImage: NetworkImage(
-                    //     'http://www.bbk.ac.uk/mce/wp-content/uploads/2015/03/8327142885_9b447935ff.jpg'),
-                    radius: 40.0,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          // backgroundImage: NetworkImage(
+                          //     'http://www.bbk.ac.uk/mce/wp-content/uploads/2015/03/8327142885_9b447935ff.jpg'),
+                          radius: 40.0,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(0.2, 0.0),
+                        child: TextButton(
+                            onPressed: () {
+                              while (Navigator.canPop(context)) {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text(
+                              '로그인하세요',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            )),
+                      ),
+                      // Align(
+                      //   alignment: Alignment.centerRight + Alignment(0, .3),
+                      //   child: Text(
+                      //     'Flutter Youtuber',
+                      //     style: TextStyle(
+                      //       color: Colors.white70,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Align(
+                      //   alignment: Alignment.centerRight + Alignment(0, .8),
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //       border: Border.all(color: Colors.white),
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //     ),
+                      //
+                      //
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment(0.2, 0.0),
-                  child: TextButton(
-                    onPressed: (){
-                      while(Navigator.canPop( context ))
-                      {
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Text('로그인하세요',
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
-
-                    )
-
-                  ),
-                ),
-                // Align(
-                //   alignment: Alignment.centerRight + Alignment(0, .3),
-                //   child: Text(
-                //     'Flutter Youtuber',
-                //     style: TextStyle(
-                //       color: Colors.white70,
-                //     ),
-                //   ),
-                // ),
-                // Align(
-                //   alignment: Alignment.centerRight + Alignment(0, .8),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       border: Border.all(color: Colors.white),
-                //       borderRadius: BorderRadius.circular(15.0),
-                //     ),
-                //
-                //
-                //   ),
-                // ),
-                  ],
-                ),
-              ),
-              height: 150
-            ),
-
+                height: 150),
 
             // UserAccountsDrawerHeader(
             // currentAccountPicture: CircleAvatar(
@@ -165,8 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return Point();
-                      }));
+                    return Point();
+                  }));
                 }),
             ListTile(
                 title: Text(
@@ -178,8 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return Parking();
-                      }));
+                    return Parking();
+                  }));
                 }),
             ListTile(
                 title: Text(
@@ -191,8 +191,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return Notice();
-                      }));
+                    return Notice();
+                  }));
                 }),
             ListTile(
                 title: Text(
@@ -204,8 +204,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return Guide();
-                      }));
+                    return Guide();
+                  }));
                 }),
             ListTile(
                 title: Text(
@@ -217,8 +217,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return CustomerCenter();
-                      }));
+                    return CustomerCenter();
+                  }));
                 }),
             ListTile(
                 title: Text(
@@ -230,13 +230,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                        return Option();
-                      }));
+                    return Settings();
+                  }));
                 }),
           ],
         ),
       ),
-
       body: Builder(builder: (BuildContext context) {
         return WebView(
           initialUrl: 'https://balmy-virtue-314416.web.app',
@@ -277,77 +276,5 @@ class _MyHomePageState extends State<MyHomePage> {
             SnackBar(content: Text(message.message)),
           );
         });
-  }
-}
-
-
-class Point extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('포인트')),
-
-    );
-  }
-}
-
-class Parking extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('공유주차장 관리')),
-        body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              RaisedButton(
-                  child: Text('주차장 등록하기'),
-                  textColor: Colors.black,
-                  color: Colors.white10,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
-                          return Register();
-                        }));
-                  }
-                //
-                //
-                //
-              )
-            ])));
-  }
-}
-
-class Notice extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('공지사항')),
-    );
-  }
-}
-
-class Guide extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('서비스 이용안내')),
-    );
-  }
-}
-
-class CustomerCenter extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('고객센터')),
-    );
-  }
-}
-
-class Option extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('설정')),
-    );
   }
 }
