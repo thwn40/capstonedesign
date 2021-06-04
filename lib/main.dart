@@ -305,11 +305,15 @@ class Parking extends StatelessWidget {
                     MaterialPageRoute<void>(builder: (BuildContext context) {
                   return Register();
                 }));
+<<<<<<< HEAD
               }
               //
               //
               //
               )
+=======
+              })
+>>>>>>> 3492346dcefca8192a2aa3d4e2a82b1abf056767
         ])));
   }
 }
