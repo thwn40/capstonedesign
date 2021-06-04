@@ -8,21 +8,23 @@ class Parking extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text('공유주차장 관리')),
         body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          RaisedButton(
-              child: Text('주차장 등록하기'),
-              textColor: Colors.black,
-              color: Colors.white10,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute<void>(builder: (BuildContext context) {
-                  return Register();
-                }));
-              }
-              //
-              //
-              //
-              )
-        ])));
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+              RaisedButton(
+                  child: Text('주차장 등록하기'),
+                  textColor: Colors.black,
+                  color: Colors.white10,
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                      return Register();
+                    }));
+                  }
+                  //
+                  //
+                  //
+                  )
+            ])));
   }
 }
