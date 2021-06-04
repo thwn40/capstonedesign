@@ -31,7 +31,7 @@ class Second extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(
-        title: '주차어때',
+        title: '이성준 바보',
       ),
     );
   }
@@ -234,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Option();
+                    return Settings();
                   }));
                 }),
           ],
@@ -280,71 +280,5 @@ class _MyHomePageState extends State<MyHomePage> {
             SnackBar(content: Text(message.message)),
           );
         });
-  }
-}
-
-class Point extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('포인트')),
-    );
-  }
-}
-
-class Parking extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('공유주차장 관리')),
-        body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          RaisedButton(
-              child: Text('주차장 등록하기'),
-              textColor: Colors.black,
-              color: Colors.white10,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute<void>(builder: (BuildContext context) {
-                  return Register();
-                }));
-              })
-        ])));
-  }
-}
-
-class Notice extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('공지사항')),
-    );
-  }
-}
-
-class Guide extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('서비스 이용안내')),
-    );
-  }
-}
-
-class CustomerCenter extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('고객센터')),
-    );
-  }
-}
-
-class Option extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('설정')),
-    );
   }
 }
