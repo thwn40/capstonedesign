@@ -61,7 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
 
         title: Text('주차어때'),
-        centerTitle: true, // 타이틀가운데 정렬
+        centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+        ),
+        backgroundColor: Colors.cyan, // 타이틀가운데 정렬
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -82,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.cyan,
                   ),
                   child: Stack(
                     children: <Widget>[
