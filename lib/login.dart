@@ -37,8 +37,11 @@ class _LogInState extends State<LogIn> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('주차어때'),
-          centerTitle: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         body: Builder(
           builder: (context) {
@@ -55,7 +58,7 @@ class _LogInState extends State<LogIn> {
                           data: ThemeData(
                               inputDecorationTheme: InputDecorationTheme(
                                   labelStyle: TextStyle(
-                                      color: Colors.teal, fontSize: 15.0))),
+                                      color: Colors.cyan, fontSize: 15.0))),
                           child: Container(
                               padding: EdgeInsets.all(30.0),
                               child: Column(
@@ -81,7 +84,11 @@ class _LogInState extends State<LogIn> {
                                   RaisedButton(
                                     child: Text('로그인',
                                         style: TextStyle(fontSize: 21)),
-                                    color: Colors.blue,
+                                    color: Colors.cyan,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          bottom: Radius.circular(16)),
+                                    ),
                                     onPressed: () {
                                       if (Controller.text == 'dice' &&
                                           Controller2.text == '1234') {
