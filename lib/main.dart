@@ -63,17 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
 
-<<<<<<< HEAD
-        title: Text('주차어때'),
-        centerTitle: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        ),
-        backgroundColor: Colors.cyan, // 타이틀가운데 정렬
-=======
         title: Text('우리의주차장'),
         centerTitle: true, // 타이틀가운데 정렬
->>>>>>> e810d64ebfb664185aa8916f376f767b24418e3d
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -94,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.cyan,
+                    color: Colors.blue,
                   ),
                   child: Stack(
                     children: <Widget>[
