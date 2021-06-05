@@ -33,6 +33,13 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
+  User user;
+  @override
+  void initState() {
+    _auth.userChanges().listen((event) => setState(() => user = event));
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     print('MyApp created');
     return MaterialApp(
@@ -46,5 +53,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//메인페이지부분 끝
 
 // 메인페이지부분 시작
