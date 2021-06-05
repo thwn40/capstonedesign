@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/Settings.dart';
 import 'package:myapp/register.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
@@ -10,7 +11,8 @@ import 'package:myapp/Guide.dart';
 import 'package:myapp/Notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/Parking.dart';
-import 'package:myapp/Settings.dart';
+import 'package:http/http.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,69 +26,7 @@ void main() async {
 class Second extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(
-        title: '이성준 바보',
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-
-<<<<<<< HEAD
-        title: Text('주차어때'),
-        centerTitle: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        ),
-        backgroundColor: Colors.cyan, // 타이틀가운데 정렬
-=======
-        title: Text('우리의주차장'),
-        centerTitle: true, // 타이틀가운데 정렬
->>>>>>> e810d64ebfb664185aa8916f376f767b24418e3d
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return search();
-              }));
-              print('menu button is clicked');
-            },
-          ),
-        ],
-      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -121,53 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   color: Colors.white, fontSize: 20.0),
                             )),
                       ),
-                      // Align(
-                      //   alignment: Alignment.centerRight + Alignment(0, .3),
-                      //   child: Text(
-                      //     'Flutter Youtuber',
-                      //     style: TextStyle(
-                      //       color: Colors.white70,
-                      //     ),
-                      //   ),
-                      // ),
-                      // Align(
-                      //   alignment: Alignment.centerRight + Alignment(0, .8),
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //       border: Border.all(color: Colors.white),
-                      //       borderRadius: BorderRadius.circular(15.0),
-                      //     ),
-                      //
-                      //
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
                 height: 150),
-
-            // UserAccountsDrawerHeader(
-            // currentAccountPicture: CircleAvatar(
-            //   backgroundImage: AssetImage('assets/img.jpg'),
-            //   backgroundColor: Colors.white,
-            // ),
-            // otherAccountsPictures: <Widget>[
-            //   CircleAvatar(
-            //     backgroundImage: AssetImage('assets/img.jpg'),
-            //     backgroundColor: Colors.white,
-            //   )
-            // ],
-            // accountName: Text('4조'),
-            // accountEmail: Text('mingi7891@naver.com'),
-            // onDetailsPressed: () {
-            //   print('arrow is clicked');
-            // },
-            // decoration: BoxDecoration(
-            //     color: Colors.blue,
-            //     borderRadius: BorderRadius.only(
-            //         bottomLeft: Radius.circular(40.0),
-            //         bottomRight: Radius.circular(40.0))),
-
             ListTile(
                 title: Text(
                   '포인트',
@@ -249,6 +146,88 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      // This is handled by the search bar itself.
+
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          MyHomePage(),
+          buildFloatingSearchBar(context),
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildFloatingSearchBar(BuildContext context) {
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  void _openDrawer() {
+    _drawerKey.currentState.openDrawer();
+  }
+
+  return FloatingSearchBar(
+    automaticallyImplyBackButton: false,
+    hint: 'Search...',
+    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+    transitionDuration: const Duration(milliseconds: 800),
+    transitionCurve: Curves.easeInOut,
+    physics: const BouncingScrollPhysics(),
+    axisAlignment: isPortrait ? 0.0 : -1.0,
+    openAxisAlignment: 0.0,
+    width: isPortrait ? 600 : 500,
+    debounceDelay: const Duration(milliseconds: 500),
+    onQueryChanged: (query) {
+      // Call your model, bloc, controller here.
+    },
+    // Specify a custom transition to be used for
+    // animating between opened and closed stated.
+    key: _drawerKey,
+    transition: CircularFloatingSearchBarTransition(),
+
+    builder: (context, transition) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Material(
+          color: Colors.white,
+          elevation: 4.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: Colors.accents.map((color) {
+              return Container(height: 112, color: color);
+            }).toList(),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+class _MyHomePageState extends State<MyHomePage> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      key: _drawerKey,
       body: Builder(builder: (BuildContext context) {
         return WebView(
           initialUrl: 'https://balmy-virtue-314416.web.app',
