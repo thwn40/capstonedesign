@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/main.dart';
 
 //로그인부분
-
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
@@ -36,6 +35,7 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
@@ -123,34 +123,52 @@ class _LogInState extends State<LogIn> {
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      FlatButton(
-                                          onPressed: () {},
-                                          child: Text('ID/PW 찾기')),
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: FlatButton(
+                                            onPressed: () {},
+                                            child: Text('ID/PW 찾기')),
+                                      ),
                                       Text('|'),
-                                      FlatButton(
-                                          onPressed: () {},
-                                          child: Text('회원가입')),
+                                      Expanded(
+                                        child: FlatButton(
+                                            onPressed: () {},
+                                            child: Text('회원가입')),
+                                      ),
                                       Text('|'),
-                                      FlatButton(
-                                          onPressed: () {
-                                            Navigator.push(context,
-                                                MaterialPageRoute(builder:
-                                                    (BuildContext context) {
-                                              return Second();
-                                            }));
-                                          },
-                                          child: Text('비로그인 둘러보기')),
+                                      Expanded(
+                                        child: FlatButton(
+                                            onPressed: () {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(builder:
+                                                      (BuildContext context) {
+                                                return Second();
+                                              }));
+                                            },
+                                            child: Text('비로그인 둘러보기')),
+                                      ),
                                     ],
                                   ),
-                                  MaterialButton(
-                                    shape: CircleBorder(
-                                        side: BorderSide(
-                                            width: 2,
-                                            color: Colors.red,
-                                            style: BorderStyle.solid)),
-                                    onPressed: signInWithGoogle,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SignInButton(
+                                        Buttons.Google,
+                                        onPressed: signInWithGoogle,
+                                      )
+                                    ],
                                   )
+                                  // SignInButton(
+                                  //   Buttons.Google,
+                                  //   onPressed: signInWithGoogle,
+                                  // MaterialButton(
+                                  //   shape: CircleBorder(
+                                  //       side: BorderSide(
+                                  //           width: 1,
+                                  //           color: Colors.red,
+                                  //           style: BorderStyle.solid)),
+                                  //   onPressed: signInWithGoogle,
+                                  // )
                                 ],
                               ))),
                     ),
