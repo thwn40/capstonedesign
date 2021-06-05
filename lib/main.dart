@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.cyan,
                   ),
                   child: Stack(
                     children: <Widget>[
