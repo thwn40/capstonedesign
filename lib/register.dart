@@ -10,6 +10,7 @@ class Register extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             centerTitle: true,
             title: Text(
@@ -52,7 +53,7 @@ class Register extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                       child: Image.asset("image/juchaselect1.png"),
-                      height: 400),
+                      height: 350),
                   TextButton(
                     child: Text(
                       "거주자우선주차고르기",
@@ -68,7 +69,7 @@ class Register extends StatelessWidget {
                     child: Image.asset(
                       "image/juchaselect2.png",
                     ),
-                    height: 400,
+                    height: 350,
                   ),
                   TextButton(
                     child: Text(
