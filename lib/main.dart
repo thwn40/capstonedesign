@@ -1,18 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/Settings.dart';
+import 'package:flutter_signin_button/button_builder.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:myapp/settings.dart';
 import 'package:myapp/register.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:myapp/login.dart';
 import 'package:myapp/search.dart';
-import 'package:myapp/CustomerCenter.dart';
-import 'package:myapp/Guide.dart';
-import 'package:myapp/Notice.dart';
+import 'package:myapp/customer_center.dart';
+import 'package:myapp/guide.dart';
+import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
-import 'package:myapp/Parking.dart';
-import 'package:http/http.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:myapp/parking.dart';
+import 'package:myapp/settings.dart';
+import 'package:myapp/signin_page.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +29,25 @@ void main() async {
   ));
 }
 
-class Second extends StatelessWidget {
+// 메인페이지부분 시작
+class Second extends StatefulWidget {
   @override
+  _SecondState createState() => _SecondState();
+}
+
+class _SecondState extends State<Second> {
+  @override
+  User user;
+  @override
+  void initState() {
+    _auth.userChanges().listen((event) => setState(() => user = event));
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      //drawer 시작
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -51,14 +72,16 @@ class Second extends StatelessWidget {
                         alignment: Alignment(0.2, 0.0),
                         child: TextButton(
                             onPressed: () {
+                              final User user = _auth.currentUser;
+
                               while (Navigator.canPop(context)) {
                                 Navigator.pop(context);
                               }
                             },
                             child: Text(
-                              '로그인하세요',
+                              '${user.email}',
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
+                                  color: Colors.white, fontSize: 10.0),
                             )),
                       ),
                     ],
@@ -146,7 +169,6 @@ class Second extends StatelessWidget {
           ],
         ),
       ),
-      // This is handled by the search bar itself.
 
       body: Stack(
         fit: StackFit.expand,
@@ -158,51 +180,9 @@ class Second extends StatelessWidget {
     );
   }
 }
+//메인페이지부분 끝
 
-Widget buildFloatingSearchBar(BuildContext context) {
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  void _openDrawer() {
-    _drawerKey.currentState.openDrawer();
-  }
-
-  return FloatingSearchBar(
-    automaticallyImplyBackButton: false,
-    hint: 'Search...',
-    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-    transitionDuration: const Duration(milliseconds: 800),
-    transitionCurve: Curves.easeInOut,
-    physics: const BouncingScrollPhysics(),
-    axisAlignment: isPortrait ? 0.0 : -1.0,
-    openAxisAlignment: 0.0,
-    width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
-    },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
-    key: _drawerKey,
-    transition: CircularFloatingSearchBarTransition(),
-
-    builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
-          ),
-        ),
-      );
-    },
-  );
-}
-
+//홈페이지 보여주는 부분 시작(건드리지마세요)
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -270,3 +250,50 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 }
+//홈페이지 보여주는 부분 끝(건드리지마세요)
+
+// 검색창 위젯 (건드리지마세요)
+Widget buildFloatingSearchBar(BuildContext context) {
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  void _openDrawer() {
+    _drawerKey.currentState.openDrawer();
+  }
+
+  return FloatingSearchBar(
+    automaticallyImplyBackButton: false,
+    hint: 'Search...',
+    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+    transitionDuration: const Duration(milliseconds: 800),
+    transitionCurve: Curves.easeInOut,
+    physics: const BouncingScrollPhysics(),
+    axisAlignment: isPortrait ? 0.0 : -1.0,
+    openAxisAlignment: 0.0,
+    width: isPortrait ? 600 : 500,
+    debounceDelay: const Duration(milliseconds: 500),
+    onQueryChanged: (query) {
+      // Call your model, bloc, controller here.
+    },
+    // Specify a custom transition to be used for
+    // animating between opened and closed stated.
+    key: _drawerKey,
+    transition: CircularFloatingSearchBarTransition(),
+
+    builder: (context, transition) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Material(
+          color: Colors.white,
+          elevation: 4.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: Colors.accents.map((color) {
+              return Container(height: 112, color: color);
+            }).toList(),
+          ),
+        ),
+      );
+    },
+  );
+}
+// 검색창 부분 위젯 ( 건드리지 마세요 )
