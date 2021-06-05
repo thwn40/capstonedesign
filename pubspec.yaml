@@ -37,6 +37,7 @@ dependencies:
   google_sign_in: ^5.0.2
   flutter_signin_button: ^2.0.0
   webview_flutter: ^0.3.24
+  search_map_place: ^0.3.0
 
 dev_dependencies:
   flutter_test:
