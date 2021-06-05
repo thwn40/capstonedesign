@@ -24,7 +24,7 @@ Future<UserCredential> signInWithGoogle() async {
   );
 
   // Once signed in, return the UserCredential
-  //return await FirebaseAuth.instance.signInWithCredential(credential);
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
 class _LogInState extends State<LogIn> {
@@ -142,14 +142,26 @@ class _LogInState extends State<LogIn> {
                                       ),
                                     ],
                                   ),
-                                  MaterialButton(
-                                    shape: CircleBorder(
-                                        side: BorderSide(
-                                            width: 1,
-                                            color: Colors.red,
-                                            style: BorderStyle.solid)),
-                                    onPressed: signInWithGoogle,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SignInButton(
+                                        Buttons.Google,
+                                        onPressed: signInWithGoogle,
+                                      )
+                                    ],
                                   )
+                                  // SignInButton(
+                                  //   Buttons.Google,
+                                  //   onPressed: signInWithGoogle,
+                                  // MaterialButton(
+                                  //   shape: CircleBorder(
+                                  //       side: BorderSide(
+                                  //           width: 1,
+                                  //           color: Colors.red,
+                                  //           style: BorderStyle.solid)),
+                                  //   onPressed: signInWithGoogle,
+                                  // )
                                 ],
                               ))),
                     ),
