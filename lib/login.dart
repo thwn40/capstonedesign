@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:myapp/main.dart';
+import './register_page.dart';
+import './signin_page.dart';
 
 //로그인부분
 class LogIn extends StatefulWidget {
@@ -30,6 +35,12 @@ Future<UserCredential> signInWithGoogle() async {
 class _LogInState extends State<LogIn> {
   TextEditingController Controller = TextEditingController();
   TextEditingController Controller2 = TextEditingController();
+
+  void _pushPage(BuildContext context, Widget page) {
+    Navigator.of(context) /*!*/ .push(
+      MaterialPageRoute<void>(builder: (_) => page),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,33 +93,12 @@ class _LogInState extends State<LogIn> {
                                   ),
                                   SizedBox(height: 40),
                                   RaisedButton(
-                                    child: Text('로그인',
-                                        style: TextStyle(fontSize: 21)),
-                                    color: Colors.cyan,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          bottom: Radius.circular(16)),
-                                    ),
-                                    onPressed: () {
-                                      if (Controller.text == 'dice' &&
-                                          Controller2.text == '1234') {
-                                        // push에 전달되는 두 번째 매개변수는 Route<T> 클래스.
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder:
-                                                (BuildContext context) {
-                                          return Second();
-                                        }));
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text(
-                                            '로그인정보를 확인하세요',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          duration: Duration(seconds: 2),
-                                          backgroundColor: Colors.blue,
-                                        ));
-                                      }
+                                      child: SignInButtonBuilder(
+                                    text: '로그인',
+                                    onPressed: () =>
+                                        _pushPage(context, SignInPage()),
+                                    // push에 전달되는 두 번째 매개변수는 Route<T> 클래스.
+                                  )
 
                                       // 화살표 문법 적용
                                       // Navigator.push(context,
@@ -119,8 +109,7 @@ class _LogInState extends State<LogIn> {
                                       // Navigator.of(context).push(
                                       // MaterialPageRoute<void>(builder: (BuildContext context) => Second())
                                       // );
-                                    },
-                                  ),
+                                      ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -132,7 +121,14 @@ class _LogInState extends State<LogIn> {
                                       Text('|'),
                                       Expanded(
                                         child: FlatButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute<void>(
+                                                      builder: (BuildContext
+                                                          context) {
+                                                return RegisterPage();
+                                              }));
+                                            },
                                             child: Text('회원가입')),
                                       ),
                                       Text('|'),

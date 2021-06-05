@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_builder.dart';
 import 'package:myapp/register.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:myapp/login.dart';
@@ -11,6 +14,9 @@ import 'package:myapp/Notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/Parking.dart';
 import 'package:myapp/Settings.dart';
+import 'package:myapp/signin_page.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,8 +55,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-
+  User user;
   @override
+  void initState() {
+    _auth.userChanges().listen((event) => setState(() => user = event));
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -102,14 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         alignment: Alignment(0.2, 0.0),
                         child: TextButton(
                             onPressed: () {
+                              final User user = _auth.currentUser;
+
                               while (Navigator.canPop(context)) {
                                 Navigator.pop(context);
                               }
                             },
                             child: Text(
-                              '로그인하세요',
+                              '${user.email}',
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
+                                  color: Colors.white, fontSize: 10.0),
                             )),
                       ),
                       // Align(
