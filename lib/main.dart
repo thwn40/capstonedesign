@@ -10,13 +10,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:myapp/login.dart';
 import 'package:myapp/search.dart';
-import 'package:myapp/customer_center.dart';
 import 'package:myapp/guide.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
 import 'package:myapp/settings.dart';
 import 'package:myapp/signin_page.dart';
+
+import 'custome_center.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
