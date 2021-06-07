@@ -8,28 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 
-// class RForm {
-//   String phonenumber;
-//   String birth;
-//   String address;
-//   String carnumber;
-
-//   RForm(this.phonenumber, this.birth, this.address, this.carnumber);
-//   RForm.fromSnapshot(DataSnapshot snapshot)
-//       : phonenumber = snapshot.value['phonenumber'],
-//         birth = snapshot.value['birth'],
-//         address = snapshot.value['address'],
-//         carnumber = snapshot.value['address'];
-
-//   toJson() {
-//     return {
-//       'phonenumber': phonenumber,
-//       'birth': birth,
-//       'address': address,
-//       'carnumber': carnumber,
-//     };
-//   }
-// }
 
 class Register_form extends StatefulWidget {
   final User user;

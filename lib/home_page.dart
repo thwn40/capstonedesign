@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'dart:convert';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,17 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
-=======
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/Guide.dart';
@@ -244,31 +232,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-<<<<<<< HEAD
-  Completer<GoogleMapController> _controller = Completer();
-
-  static final chonam = CameraPosition(
-    target: LatLng(34.776408495461844, 127.70128473003452),
-    zoom: 17,
-  );
-  List<Marker> _markers = [];
-=======
-  GoogleMapController controller;
+   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  //  getMarkerData() async {
-  //   FirebaseFirestore.instance
-  //       .collection('parkingdata')
-  //       .get()
-  //       .then((myMockdoc) {
-  //     if (myMockdoc.docs.isNotEmpty) {
-  //       for (int i = 0; i < myMockdoc.docs.length; i++) {
-  //         initMarker(myMockdoc.docs[i].data(), myMockdoc.docs[i].id);
-  //       }
-  //     }
-  //   });
-  // }
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   @override
   void initState() {
     getMarkerData();
@@ -398,13 +364,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: GoogleMap(
           markers: Set<Marker>.of(markers.values),
           mapType: MapType.normal,
-<<<<<<< HEAD
-          markers: Set.from(_markers),
-          initialCameraPosition: chonam,
-=======
           initialCameraPosition: CameraPosition(
               target: LatLng(34.7373365, 127.7413272), zoom: 12.0),
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
           onMapCreated: (GoogleMapController controller) {
             controller = controller;
           },
