@@ -5,7 +5,6 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:myapp/settings.dart';
 import 'package:myapp/register.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
