@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:myapp/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
@@ -21,10 +22,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
-    title: '네비게이션',
-    home: LogIn(),
-  ));
+  runApp(MaterialApp(title: '네비게이션', home: LogIn()));
 }
 
 class Second extends StatelessWidget {
