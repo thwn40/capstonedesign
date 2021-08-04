@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "854115290640",
-    "project_id": "parkinglogin-99d80",
-    "storage_bucket": "parkinglogin-99d80.appspot.com"
+    "project_number": "876787380380",
+    "firebase_url": "https://balmy-virtue-314416-default-rtdb.firebaseio.com",
+    "project_id": "balmy-virtue-314416",
+    "storage_bucket": "balmy-virtue-314416.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:854115290640:android:e6e09711a03d61de004495",
+        "mobilesdk_app_id": "1:876787380380:android:ea03725e9f743d089ebd59",
         "android_client_info": {
-          "package_name": "com.jnu.whereparking"
+          "package_name": "com.example.myapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "854115290640-a9o3tifenph8qa87mjg7jrv3uvir1ga5.apps.googleusercontent.com",
+          "client_id": "876787380380-v3ra78hoeqkqj4gsbir2dhhm0rmoefq4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.jnu.whereparking",
-            "certificate_hash": "31db1e454734ed6882aac0816bb33b4fe657bff2"
+            "package_name": "com.example.myapp",
+            "certificate_hash": "24921d2176eab678c54aa68958fad752498589e6"
           }
         },
         {
-          "client_id": "854115290640-0d7j77t6u4lr58s3p038j26q1ahiftv6.apps.googleusercontent.com",
+          "client_id": "876787380380-dbkruifhm3u5pq4i0vhb48rirfgnjkah.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBhI76YSb-RTx947oxHcJq74ztFr8jXzV8"
+          "current_key": "AIzaSyCnAjBKJXauykFuNfPDMm7ks9SQprRyQ2k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "854115290640-0d7j77t6u4lr58s3p038j26q1ahiftv6.apps.googleusercontent.com",
+              "client_id": "876787380380-dbkruifhm3u5pq4i0vhb48rirfgnjkah.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

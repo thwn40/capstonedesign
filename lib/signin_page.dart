@@ -366,7 +366,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       );
       Navigator.push(context,
           MaterialPageRoute<void>(builder: (BuildContext context) {
-        return Second();
+        // return Second();
       }));
     } catch (e) {
       Scaffold.of(context).showSnackBar(
