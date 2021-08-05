@@ -10,7 +10,6 @@ class Register extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             centerTitle: true,
             title: Text(
