@@ -1,4 +1,4 @@
-// import 'dart:html'; 
+// import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,22 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 
-import 'package:myapp/settings.dart';
-
-import 'package:myapp/guide.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
-import 'custome_center.dart';
-
-
 
 class Second extends StatefulWidget {
-    final User user;
+  final User user;
 
   Second(this.user);
   @override
@@ -55,8 +48,7 @@ class _SecondState extends State<Second> {
                         alignment: Alignment.centerLeft,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
-                               'widget.user.photoURL'),
+                          backgroundImage: NetworkImage('widget.user.photoURL'),
                           radius: 40.0,
                         ),
                       ),
@@ -72,26 +64,21 @@ class _SecondState extends State<Second> {
                             },
                             child: Text(
                               widget.user.email,
-                            
                               style: TextStyle(
                                   color: Colors.white, fontSize: 10.0),
                             )),
                       ),
                       Align(
-                        alignment: Alignment.centerRight,
-                        child :IconButton(
-                    
-          icon: Icon(Icons.exit_to_app),
-          color: Colors.black,
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            _googleSignIn.signOut();
-          },
-        )
-                      )
-                      
-      ],
-                
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: Icon(Icons.exit_to_app),
+                            color: Colors.black,
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut();
+                              _googleSignIn.signOut();
+                            },
+                          ))
+                    ],
                   ),
                 ),
                 height: 150),
@@ -105,7 +92,7 @@ class _SecondState extends State<Second> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Point();
+                    return Point(widget.user);
                   }));
                 }),
             ListTile(
@@ -136,32 +123,6 @@ class _SecondState extends State<Second> {
                 }),
             ListTile(
                 title: Text(
-                  '서비스 이용안내',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Guide();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '고객센터',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return CustomerCenter();
-                  }));
-                }),
-            ListTile(
-                title: Text(
                   '설정',
                   style: TextStyle(
                     fontSize: 20,
@@ -170,7 +131,7 @@ class _SecondState extends State<Second> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Settings();
+                    return Notice();
                   }));
                 }),
           ],
@@ -217,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
       key: _drawerKey,
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'https://balmy-virtue-314416.web.app',
+          initialUrl: 'https://balmy-virtue-314416.web.app/',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
