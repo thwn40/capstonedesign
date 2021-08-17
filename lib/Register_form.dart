@@ -37,10 +37,7 @@ class Register_form extends StatelessWidget {
   final _carnumbertextEditingController = TextEditingController();
   final _addresstextEditingController = TextEditingController();
 
-  FirebaseDatabase _database;
   DatabaseReference reference;
-  String _databaseURL =
-      'https://balmy-virtue-314416-default-rtdb.firebaseio.com/';
 
   @override
   void dispose() {
