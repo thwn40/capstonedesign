@@ -78,6 +78,12 @@ class Register extends StatelessWidget {
                     height: 350,
                   ),
                   TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Register_form()));
+                    },
                     child: Text(
                       "원룸/빌라형 고르기",
                       style: TextStyle(fontSize: 30, color: Colors.black),
