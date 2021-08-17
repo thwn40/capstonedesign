@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/Register_form.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/parking.dart';
+import 'package:myapp/register_page.dart';
 
 class Register extends StatelessWidget {
   // This widget is the root of your application.
@@ -54,6 +56,12 @@ class Register extends StatelessWidget {
                       child: Image.asset("image/juchaselect1.png"),
                       height: 350),
                   TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Register_form()));
+                    },
                     child: Text(
                       "거주자우선주차고르기",
                       style: TextStyle(fontSize: 30, color: Colors.black),
