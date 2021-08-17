@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/Register_form.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/parking.dart';
-import 'package:myapp/register_page.dart';
 
 class Register extends StatelessWidget {
   // This widget is the root of your application.
