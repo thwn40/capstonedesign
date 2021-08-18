@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
@@ -6,11 +7,26 @@
     "configurations": [
         {
             "name": "myapp",
+=======
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "jnu",
+            "cwd": "jnu",
+>>>>>>> 5e223b9b56df9e330a166e2ab0355efcdb3a561e
             "request": "launch",
             "type": "dart"
         },
         {
+<<<<<<< HEAD
             "name": "myapp (profile mode)",
+=======
+            "name": "jnu (profile mode)",
+            "cwd": "jnu",
+>>>>>>> 5e223b9b56df9e330a166e2ab0355efcdb3a561e
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
