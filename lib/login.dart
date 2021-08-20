@@ -5,7 +5,6 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 
-
 //로그인부분
 class LogIn extends StatefulWidget {
   @override
@@ -87,7 +86,7 @@ class _LogInState extends State<LogIn> {
 //               onTap: () {
 //                 FocusScope.of(context).unfocus(); // 하얀화면 누르면 키보드가 내려감
 //               },
-//               child: SingleChildScrollView(
+//          asdf     child: SingleChildScrollView(
 //                 child: Column(
 //                   children: <Widget>[
 //                     Form(

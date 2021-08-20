@@ -37,6 +37,7 @@ class Register_form extends StatelessWidget {
   final _carnumbertextEditingController = TextEditingController();
   final _addresstextEditingController = TextEditingController();
 
+  final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
   DatabaseReference reference;
 
   @override
