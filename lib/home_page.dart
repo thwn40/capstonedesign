@@ -1,17 +1,19 @@
 // import 'dart:html';
 
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:async';
-import 'package:myapp/settings.dart';
-import 'package:myapp/guide.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
-import 'custome_center.dart';
+
 
 class Second extends StatefulWidget {
   final User user;
@@ -170,13 +172,28 @@ class _MyHomePageState extends State<MyHomePage> {
     _markers.add(Marker(
         markerId: MarkerId("1"),
         draggable: true,
-        onTap: () => print("Marker!"),
+        onTap: ()  {
+            showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: BottomSheetExample(),
+              ),
+            ),
+          );
+          },
         position: LatLng(34.776408495461844, 127.70128473003452)));
   }
 
   @override
   Widget build(BuildContext context) {
+      
+    
     return Scaffold(
+      
       body: Center(
         child: GoogleMap(
           mapType: MapType.normal,
@@ -239,3 +256,57 @@ Widget buildFloatingSearchBar(BuildContext context) {
     },
   );
 }
+
+class BottomSheetExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xff757575),
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+             Image.asset('image/parkingimage.jpg'
+                  ),
+           
+             
+            Row(
+              children: [
+                
+                
+                Text(
+                  '시간당 요금  : ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+
+              ],
+            ),
+            
+            FlatButton(
+              child: Text(
+                '결제 후 이용',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
