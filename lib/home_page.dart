@@ -162,12 +162,25 @@ class _MyHomePageState extends State<MyHomePage> {
     zoom: 17,
   );
 
+  List<Marker> _markers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _markers.add(Marker(
+        markerId: MarkerId("1"),
+        draggable: true,
+        onTap: () => print("Marker!"),
+        position: LatLng(34.776408495461844, 127.70128473003452)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: GoogleMap(
           mapType: MapType.normal,
+          markers: Set.from(_markers),
           initialCameraPosition: gwanghwamun,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
