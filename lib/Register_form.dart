@@ -8,28 +8,28 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/parking.dart';
 
-class RForm {
-  String phonenumber;
-  String birth;
-  String address;
-  String carnumber;
+// class RForm {
+//   String phonenumber;
+//   String birth;
+//   String address;
+//   String carnumber;
 
-  RForm(this.phonenumber, this.birth, this.address, this.carnumber);
-  RForm.fromSnapshot(DataSnapshot snapshot)
-      : phonenumber = snapshot.value['phonenumber'],
-        birth = snapshot.value['birth'],
-        address = snapshot.value['address'],
-        carnumber = snapshot.value['address'];
+//   RForm(this.phonenumber, this.birth, this.address, this.carnumber);
+//   RForm.fromSnapshot(DataSnapshot snapshot)
+//       : phonenumber = snapshot.value['phonenumber'],
+//         birth = snapshot.value['birth'],
+//         address = snapshot.value['address'],
+//         carnumber = snapshot.value['address'];
 
-  toJson() {
-    return {
-      'phonenumber': phonenumber,
-      'birth': birth,
-      'address': address,
-      'carnumber': carnumber,
-    };
-  }
-}
+//   toJson() {
+//     return {
+//       'phonenumber': phonenumber,
+//       'birth': birth,
+//       'address': address,
+//       'carnumber': carnumber,
+//     };
+//   }
+// }
 
 class Register_form extends StatelessWidget {
   final _phonetextEditingController = TextEditingController();
@@ -37,7 +37,7 @@ class Register_form extends StatelessWidget {
   final _carnumbertextEditingController = TextEditingController();
   final _addresstextEditingController = TextEditingController();
 
-  DatabaseReference reference;
+  // DatabaseReference reference;
 
   @override
   void dispose() {

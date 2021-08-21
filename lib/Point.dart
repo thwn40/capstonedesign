@@ -2,17 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-
 import 'package:myapp/mypage.dart';
+import 'package:get/get.dart';
 
 Widget buildFloatingSearchBar(BuildContext context) {}
 
-class Point extends StatelessWidget {
+class Point extends StatefulWidget {
   final User user;
 
   Point(this.user);
+
   @override
-  
+  _PointState createState() => _PointState();
+}
+
+class _PointState extends State<Point> {
+  @override
+ 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -30,9 +36,8 @@ class Point extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          SizedBox(
+      body: Column(children: [
+        SizedBox(
             height: 50,
             child: Row(children: [
               TextButton(
@@ -43,12 +48,12 @@ class Point extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  
+
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          
-                      return Mypage(user);
+
+                      return Mypage(widget.user);
                     }));
 
                     // Icon(Icons.arrow_forward_ios),
@@ -95,8 +100,17 @@ class Point extends StatelessWidget {
             thickness: 1,
             color: Colors.grey,
           ),
-        ],
-      ),
-    );
+
+      ],)
+          
+
+          );
+    
   }
-}
+
+
+
+
+  
+  }
+
