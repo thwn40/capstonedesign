@@ -41,8 +41,9 @@ dependencies:
   webview_flutter: ^0.3.24
   imagebutton: ^0.0.6
   cloud_firestore: ^2.4.0
-  firebase_storage: ^10.0.1
+  firebase_storage: ^10.0.2
   firebase_database: ^7.1.2
+  google_maps_flutter: ^2.0.6
   get: ^3.24.0
 
 dev_dependencies:

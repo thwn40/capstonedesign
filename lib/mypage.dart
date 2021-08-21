@@ -104,18 +104,16 @@ class _MypageState extends State<Mypage> {
     return RaisedButton(
       color: Colors.blue,
       onPressed: () {
-        
-                
         if (this.formkey.currentState.validate()) {
           this.formkey.currentState.save();
           FirebaseFirestore.instance.collection('forms').doc().set({
-                    'phonenumber':  '$phonenumber',
-                    'carnumber': '$carnumber',
-                    'id': widget.user
-                    // 'ID': user.email.text
-                  }).then((onValue) {
-                    Navigator.pop(context);
-                  });
+            'phonenumber': '$phonenumber',
+            'carnumber': '$carnumber',
+            'id': widget.user
+            // 'ID': user.email.text
+          }).then((onValue) {
+            Navigator.pop(context);
+          });
 
           Get.snackbar(
             '저장성공',

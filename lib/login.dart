@@ -86,7 +86,7 @@ class _LogInState extends State<LogIn> {
 //               onTap: () {
 //                 FocusScope.of(context).unfocus(); // 하얀화면 누르면 키보드가 내려감
 //               },
-//               child: SingleChildScrollView(
+//          asdf     child: SingleChildScrollView(
 //                 child: Column(
 //                   children: <Widget>[
 //                     Form(
