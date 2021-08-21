@@ -56,7 +56,7 @@ class _SecondState extends State<Second> {
                         alignment: Alignment(0.2, 0.0),
                         child: TextButton(
                             onPressed: () {
-                              // final User user = _auth.currentUser;
+                              //final User user = _auth.currentUser;
 
                               while (Navigator.canPop(context)) {
                                 Navigator.pop(context);
@@ -142,6 +142,7 @@ class _SecondState extends State<Second> {
         fit: StackFit.expand,
         children: [
           MyHomePage(),
+          buildFloatingSearchBar(context),
         ],
       ),
     );
@@ -157,8 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final gwanghwamun = CameraPosition(
-    target: LatLng(37.575929, 126.976849),
-    zoom: 3.0,
+    target: LatLng(34.776408495461844, 127.70128473003452),
+    zoom: 17,
   );
 
   @override
@@ -180,4 +181,48 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+Widget buildFloatingSearchBar(BuildContext context) {
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  void _openDrawer() {
+    _drawerKey.currentState.openDrawer();
+  }
+
+  return FloatingSearchBar(
+    automaticallyImplyBackButton: false,
+    hint: 'Search...',
+    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+    transitionDuration: const Duration(milliseconds: 800),
+    transitionCurve: Curves.easeInOut,
+    physics: const BouncingScrollPhysics(),
+    axisAlignment: isPortrait ? 0.0 : -1.0,
+    openAxisAlignment: 0.0,
+    width: isPortrait ? 600 : 500,
+    debounceDelay: const Duration(milliseconds: 500),
+    onQueryChanged: (query) {
+      // Call your model, bloc, controller here.
+    },
+    // Specify a custom transition to be used for
+    // animating between opened and closed stated.
+    key: _drawerKey,
+    transition: CircularFloatingSearchBarTransition(),
+
+    builder: (context, transition) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Material(
+          color: Colors.white,
+          elevation: 4.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: Colors.accents.map((color) {
+              return Container(height: 112, color: color);
+            }).toList(),
+          ),
+        ),
+      );
+    },
+  );
 }
