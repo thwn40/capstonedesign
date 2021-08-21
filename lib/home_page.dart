@@ -92,7 +92,7 @@ class _SecondState extends State<Second> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Point();
+                    return Point(widget.user);
                   }));
                 }),
             ListTile(
@@ -123,32 +123,6 @@ class _SecondState extends State<Second> {
                 }),
             ListTile(
                 title: Text(
-                  '서비스 이용안내',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Guide();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '고객센터',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return CustomerCenter();
-                  }));
-                }),
-            ListTile(
-                title: Text(
                   '설정',
                   style: TextStyle(
                     fontSize: 20,
@@ -157,7 +131,7 @@ class _SecondState extends State<Second> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Settings();
+                    return Notice();
                   }));
                 }),
           ],
@@ -168,7 +142,6 @@ class _SecondState extends State<Second> {
         fit: StackFit.expand,
         children: [
           MyHomePage(),
-          buildFloatingSearchBar(context),
         ],
       ),
     );

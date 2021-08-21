@@ -11,7 +11,7 @@ class Parking extends StatelessWidget {
           title: Text(
             '내 공유주차장',
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 20,
               color: Colors.black,
             ),
           ),
@@ -21,6 +21,9 @@ class Parking extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
+        
+
+
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -34,6 +37,7 @@ class Parking extends StatelessWidget {
                       color: Colors.blue,
                     )),
               ),
+              
               SizedBox(
                 height: 15,
               ),

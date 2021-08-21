@@ -1,68 +1,103 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:myapp/main.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:flutter/painting.dart';
+import 'package:myapp/mypage.dart';
 
-Widget buildFloatingSearchBar(BuildContext context) {
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+Widget buildFloatingSearchBar(BuildContext context) {}
 
-  return FloatingSearchBar(
-    hint: 'Search...',
-    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-    transitionDuration: const Duration(milliseconds: 800),
-    transitionCurve: Curves.easeInOut,
-    physics: const BouncingScrollPhysics(),
-    axisAlignment: isPortrait ? 0.0 : -1.0,
-    openAxisAlignment: 0.0,
-    width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
-    },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
-    transition: CircularFloatingSearchBarTransition(),
-    actions: [
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.place),
-          onPressed: () {},
-        ),
-      ),
-      FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
-      ),
-    ],
-    builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
-          ),
-        ),
-      );
-    },
-  );
+class Point extends StatefulWidget {
+  final User user;
+
+  Point(this.user);
+
+  @override
+  _PointState createState() => _PointState();
 }
 
-class Point extends StatelessWidget {
+class _PointState extends State<Point> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // This is handled by the search bar itself.
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            '내정보',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 50,
+              child: Row(children: [
+                TextButton(
+                    child: Text(
+                      "   내 정보",
+                      style: TextStyle(
+                        // color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                        return Mypage(widget.user);
+                      }));
 
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          buildFloatingSearchBar(context),
-        ],
-      ),
-    );
+                      // Icon(Icons.arrow_forward_ios),
+                    }),
+              ]),
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.grey,
+            ),
+            SizedBox(
+              height: 50,
+              child: Container(
+                child: Row(
+                  children: [
+                    Text(
+                      "     포인트",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.grey,
+            ),
+            SizedBox(
+              height: 50,
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "     이용내역",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.grey,
+            ),
+          ],
+        ));
   }
 }
