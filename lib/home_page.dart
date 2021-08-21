@@ -226,3 +226,5 @@ Widget buildFloatingSearchBar(BuildContext context) {
     },
   );
 }
+
+
