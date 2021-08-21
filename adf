@@ -1,0 +1,344 @@
+[33mcommit cbaa60fe1b7b846456bc70b701f734af7f062fbc[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Sat Aug 21 20:32:42 2021 +0900
+
+    08212032
+
+[33mcommit 5a64acab28c1609e3a5d74c48ce78d3678b7cbdd[m
+Merge: 95f5f63 ebf5e20
+Author: thwn40 <thwn40@naver.com>
+Date:   Tue Aug 17 21:38:07 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 95f5f63bbd444d225c006983169e4395fd03a8c9[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Tue Aug 17 21:37:58 2021 +0900
+
+    08172137
+
+[33mcommit 73f64dca8f22744ada6cd4985a9dd986ed38c87f[m
+Merge: 5b1fe5f 799be2e
+Author: thwn40 <thwn40@naver.com>
+Date:   Tue Aug 17 21:35:50 2021 +0900
+
+    08172135
+
+[33mcommit ebf5e20bf19c29d8cdf85046bbb6fc69b7ad3ed7[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Aug 17 21:32:44 2021 +0900
+
+    08172132
+
+[33mcommit 799be2e1f1bce00a5246f6dd25bae8db667fee45[m
+Merge: 2b7069a e7cbff9
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Aug 17 21:02:33 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit 2b7069ab15d33ace409216e2031cf7c91e7f863e[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Aug 17 21:01:43 2021 +0900
+
+    0817
+
+[33mcommit 5b1fe5f6bfabeb6fd9d47b49a4196664c55da4ed[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Fri Aug 13 09:20:26 2021 +0900
+
+    210813
+
+[33mcommit 633bab5acc3a2fb4d2367f34185063ae603cf196[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Thu Aug 5 21:59:43 2021 +0900
+
+[33mcommit e6c4bc47b58795555c46223836aa01a6f09df9c8[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Thu Aug 5 20:51:38 2021 +0900
+
+[33mcommit e7cbff9e5816222e041ae00ac1cfd512870eefbd[m
+Merge: 6231095 4127944
+Author: thwn40 <thwn40@naver.com>
+Date:   Wed Aug 4 21:41:56 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 623109542a4fb232220de853c96187c2210927c7[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Wed Aug 4 21:41:45 2021 +0900
+
+    로그인 추가2
+
+[33mcommit aa08a0af8e23db100e5757093dc39b3b3aa68ebb[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Wed Aug 4 21:40:09 2021 +0900
+
+    로그인 추가2
+
+[33mcommit 4127944049e1c2f8705be310acf3a78904fcad47[m[33m ([m[1;32m성준0804[m[33m)[m
+Merge: bbfda98 a7072e7
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Wed Aug 4 19:36:27 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit a7072e79cb7e5b190bbaf9a706f099eb26ed5d5c[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Mon Aug 2 21:47:38 2021 +0900
+
+    로그인 추가
+
+[33mcommit bbfda98f8b71c792c3a4ba7064975c29f3deb545[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Jun 8 00:09:16 2021 +0900
+
+    1
+
+[33mcommit 3445585d55047402f324699f23c741212f3c7307[m
+Merge: 62a3c2d c476dd3
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Jun 8 00:07:57 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit 62a3c2db78a1857189d0c2cacc1b850ab9c0d637[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Tue Jun 8 00:06:33 2021 +0900
+
+    아무것도 아님
+
+[33mcommit c476dd3dfb59320bdb2ccb51a4bd8567576e22c4[m
+Merge: 1038164 43b99ba
+Author: thwn40 <thwn40@naver.com>
+Date:   Sun Jun 6 14:08:52 2021 +0900
+
+    검색기능 추가
+
+[33mcommit 1038164bd197cd5e4707b750bd258f90fabc5df5[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Sun Jun 6 04:32:13 2021 +0900
+
+    검색기능 추가
+
+[33mcommit 857d1568e91089a52a31eed6d2c628fccc91ad06[m[33m ([m[1;31morigin/seongjun[m[33m, [m[1;32mseongjun[m[33m)[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Sun Jun 6 04:32:13 2021 +0900
+
+    검색기능 추가
+
+[33mcommit 79d519d06b67af4733bab12cb229b1ac6e7d093a[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sun Jun 6 03:35:13 2021 +0900
+
+    11
+
+[33mcommit 7addcae9e34cb8f94effeaeb70526208dca1940f[m
+Merge: 2411839 43b99ba
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sun Jun 6 02:00:00 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit 24118399e88bd45024d84d2bcf7dd92ef7673f45[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sun Jun 6 01:58:24 2021 +0900
+
+    안 바뀜
+
+[33mcommit 14c2b0f2250847eaa8d153e2ebb08a8a9a3a85ad[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sun Jun 6 01:57:27 2021 +0900
+
+    아무것도 안 바뀜
+
+[33mcommit 43b99ba3a8108eb4e2bd772cae8c659d4deb9c5f[m
+Merge: c869a3b d9b72b5
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sun Jun 6 01:44:16 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit c869a3b4ded2fc735e506812c8d4d7399637d92f[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sun Jun 6 01:36:26 2021 +0900
+
+    민기
+
+[33mcommit 31e20e6f3bd9462a7018fcf7ea92bf0b87b6b696[m
+Merge: 64ba077 d9b72b5
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 21:43:15 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit 64ba077a4165dbadc2d57e370ea9468243cc2383[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 21:42:03 2021 +0900
+
+    123
+
+[33mcommit d9b72b5bf638ad2ab11f21d3b33bb0ea7e6254e6[m
+Merge: 7efa90a e810d64
+Author: thwn40 <thwn40@naver.com>
+Date:   Sat Jun 5 21:34:36 2021 +0900
+
+    주차등록2
+
+[33mcommit 7efa90aeeae6c6e9fb0f5d35453168dd325fbfa6[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Sat Jun 5 21:33:18 2021 +0900
+
+    주차페이지2
+
+[33mcommit e810d64ebfb664185aa8916f376f767b24418e3d[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 17:28:27 2021 +0900
+
+    구글 로그인 버튼 변경
+
+[33mcommit 1fdc5d53a139ace2c2d3162b7058fd21dfb28601[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 02:01:07 2021 +0900
+
+    민기
+
+[33mcommit c5b185b90fbf33203ed553ae5f02f123390561e4[m
+Merge: eba762f 07c4dd4
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 02:00:12 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit eba762f9540f403ef92933280b416d84eaf38176[m
+Merge: 3b1ebbd 4a7e51d
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 02:00:07 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 07c4dd45222170b44768478724850f35964208c9[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 01:56:30 2021 +0900
+
+    test
+
+[33mcommit 4a7e51d1352bbe758c7d1420d089f660d19ca973[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 01:55:08 2021 +0900
+
+    123
+
+[33mcommit 3b1ebbd9550e6b8d2ed479e2e95dbb75e768d34b[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 01:52:07 2021 +0900
+
+    민기
+
+[33mcommit 24b5eb654c64da7f6661b233efa12e9ed3756f17[m
+Merge: d0b4777 509f926
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 01:50:44 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 509f926a86cfcd90e5afb5c350722f9d01ce7861[m
+Merge: bbd82fe fa5dac5
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 01:47:03 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit d0b4777552ce6fc7abc0311e3cc7b3240e7b547e[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 01:45:48 2021 +0900
+
+    민기
+
+[33mcommit bbd82fed5b2c54bc617acc0fed998c00d10b58f6[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 01:38:37 2021 +0900
+
+    픽셀오류수정
+
+[33mcommit fa5dac51b7920f7af8d1c664ee7825bd6f4fe766[m
+Merge: 781f79e 2f413f5
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 01:37:52 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 2f413f54ea53a9ddb439c64224c33338611ab8c3[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Sat Jun 5 01:22:51 2021 +0900
+
+    주차장등록페이지 추가
+
+[33mcommit 781f79e4ef1f0dbc70b6992c1bf9a4f70e7cabe0[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 00:33:58 2021 +0900
+
+    11
+
+[33mcommit d31096f31f17d527f678084dcc0e970520f089c1[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 00:30:09 2021 +0900
+
+    12
+
+[33mcommit 7a5a06bbd378f0c5317282b017ecfd3e33fb3bae[m
+Merge: 7f347a2 3492346
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 00:29:09 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 7f347a22aa17862586de781cece43c5b7e7a58f7[m
+Merge: 89d0ec8 e50ed8d
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 00:24:07 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu into main
+
+[33mcommit 3492346dcefca8192a2aa3d4e2a82b1abf056767[m
+Merge: eb9a20d e50ed8d
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 00:21:09 2021 +0900
+
+    Merge branch 'main' of https://github.com/thwn40/jnu
+
+[33mcommit 89d0ec8c49932f353d4cf03d3f4ddf5f45ae6d0d[m
+Author: mingi7891 <mingi7891@naver.com>
+Date:   Sat Jun 5 00:13:52 2021 +0900
+
+    tjd
+
+[33mcommit eb9a20db5913d458393620173b894b4b9704fb4e[m
+Author: kimhowon123 <kimhowon123@naver.com>
+Date:   Sat Jun 5 00:02:20 2021 +0900
+
+    성준이꽂추30cm
+
+[33mcommit e50ed8d739586749e375879798cd568023a222b6[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Fri Jun 4 23:51:05 2021 +0900
+
+    섹스
+
+[33mcommit 641e2682ba50e42ffa9acfa1a471234e0022ee4e[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Fri Jun 4 23:50:19 2021 +0900
+
+    수정
+
+[33mcommit cd2dd8d0e54289e8af134347a58a83ad3c941684[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Fri Jun 4 23:26:01 2021 +0900
+
+    나눴음
+
+[33mcommit 3c6636d4ccd5f4227c283c6d6812fb37f3874dac[m
+Author: thwn40 <thwn40@naver.com>
+Date:   Fri Jun 4 21:19:53 2021 +0900
+
+    First commit
