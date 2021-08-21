@@ -184,8 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final gwanghwamun = CameraPosition(
-    target: LatLng(37.575929, 126.976849),
-    zoom: 3.0,
+    target: LatLng(34.776408495461844, 127.70128473003452),
+    zoom: 17,
   );
 
   @override
