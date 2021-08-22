@@ -1,14 +1,12 @@
 // import 'dart:html';
-
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:myapp/Guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
@@ -112,7 +110,7 @@ class _SecondState extends State<Second> {
                             child: Text(
                               widget.user.email,
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 10.0),
+                                  color: Colors.white, fontSize: 12.0),
                             )),
                       ),
                       Align(
@@ -131,7 +129,7 @@ class _SecondState extends State<Second> {
                 height: 150),
             ListTile(
                 title: Text(
-                  '포인트',
+                  '내정보',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -166,6 +164,19 @@ class _SecondState extends State<Second> {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
                     return Notice();
+                  }));
+                }),
+            ListTile(
+                title: Text(
+                  '서비스 이용안내',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return Guide();
                   }));
                 }),
             ListTile(
