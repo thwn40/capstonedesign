@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
-
+import 'package:myapp/Pay.dart';
 
 class Second extends StatefulWidget {
   final User user;
@@ -29,6 +29,51 @@ class _SecondState extends State<Second> {
   void initState() {
     // _auth.userChanges().listen((event) => setState(() => user = event));
     super.initState();
+  }
+
+  Widget buildFloatingSearchBar(BuildContext context) {
+    final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    void _openDrawer() {
+      _drawerKey.currentState.openDrawer();
+    }
+
+    return FloatingSearchBar(
+      automaticallyImplyBackButton: false,
+      hint: 'Search...',
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 800),
+      transitionCurve: Curves.easeInOut,
+      physics: const BouncingScrollPhysics(),
+      axisAlignment: isPortrait ? 0.0 : -1.0,
+      openAxisAlignment: 0.0,
+      width: isPortrait ? 600 : 500,
+      debounceDelay: const Duration(milliseconds: 500),
+      onQueryChanged: (query) {
+        // Call your model, bloc, controller here.
+      },
+      // Specify a custom transition to be used for
+      // animating between opened and closed stated.
+      key: _drawerKey,
+      transition: CircularFloatingSearchBarTransition(),
+
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            color: Colors.white,
+            elevation: 4.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: Colors.accents.map((color) {
+                return Container(height: 112, color: color);
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -172,8 +217,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _markers.add(Marker(
         markerId: MarkerId("1"),
         draggable: true,
-        onTap: ()  {
-            showModalBottomSheet(
+        onTap: () {
+          showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
@@ -184,16 +229,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           );
-          },
+        },
         position: LatLng(34.776408495461844, 127.70128473003452)));
   }
 
   @override
   Widget build(BuildContext context) {
-      
-    
     return Scaffold(
-      
       body: Center(
         child: GoogleMap(
           mapType: MapType.normal,
@@ -213,50 +255,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget buildFloatingSearchBar(BuildContext context) {
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  void _openDrawer() {
-    _drawerKey.currentState.openDrawer();
-  }
-
-  return FloatingSearchBar(
-    automaticallyImplyBackButton: false,
-    hint: 'Search...',
-    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-    transitionDuration: const Duration(milliseconds: 800),
-    transitionCurve: Curves.easeInOut,
-    physics: const BouncingScrollPhysics(),
-    axisAlignment: isPortrait ? 0.0 : -1.0,
-    openAxisAlignment: 0.0,
-    width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
-    },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
-    key: _drawerKey,
-    transition: CircularFloatingSearchBarTransition(),
-
-    builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
-          ),
-        ),
-      );
-    },
-  );
-}
-
 class BottomSheetExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -273,33 +271,38 @@ class BottomSheetExample extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-             Image.asset('image/parkingimage.jpg'
-                  ),
-           
-             
+            Text(
+              '2공학관 주차장',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            Image.asset('image/parkingimage.jpg'),
             Row(
               children: [
-                
-                
                 Text(
-                  '시간당 요금  : ',
+                  '주소 :'
+                  '\n시간당 요금 :'
+                  '\n연락처 :',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
                   ),
                 ),
-
               ],
             ),
-            
             FlatButton(
               child: Text(
-                '결제 후 이용',
+                '이용하기',
                 style: TextStyle(color: Colors.white),
               ),
               color: Colors.blue,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                  return Pay();
+                }));
               },
             ),
           ],
@@ -308,5 +311,3 @@ class BottomSheetExample extends StatelessWidget {
     );
   }
 }
-
-
