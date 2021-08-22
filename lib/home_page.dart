@@ -1,15 +1,17 @@
 // import 'dart:html';
-
+import 'dart:convert';
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:async';
-
+import 'package:myapp/Guide.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
-import 'package:myapp/Parking.dart';
+import 'package:myapp/parking.dart';
+import 'package:myapp/Pay.dart';
 
 class Second extends StatefulWidget {
   final User user;
@@ -25,6 +27,51 @@ class _SecondState extends State<Second> {
   void initState() {
     // _auth.userChanges().listen((event) => setState(() => user = event));
     super.initState();
+  }
+
+  Widget buildFloatingSearchBar(BuildContext context) {
+    final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    void _openDrawer() {
+      _drawerKey.currentState.openDrawer();
+    }
+
+    return FloatingSearchBar(
+      automaticallyImplyBackButton: false,
+      hint: 'Search...',
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 800),
+      transitionCurve: Curves.easeInOut,
+      physics: const BouncingScrollPhysics(),
+      axisAlignment: isPortrait ? 0.0 : -1.0,
+      openAxisAlignment: 0.0,
+      width: isPortrait ? 600 : 500,
+      debounceDelay: const Duration(milliseconds: 500),
+      onQueryChanged: (query) {
+        // Call your model, bloc, controller here.
+      },
+      // Specify a custom transition to be used for
+      // animating between opened and closed stated.
+      key: _drawerKey,
+      transition: CircularFloatingSearchBarTransition(),
+
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            color: Colors.white,
+            elevation: 4.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: Colors.accents.map((color) {
+                return Container(height: 112, color: color);
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -63,7 +110,7 @@ class _SecondState extends State<Second> {
                             child: Text(
                               widget.user.email,
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 10.0),
+                                  color: Colors.white, fontSize: 12.0),
                             )),
                       ),
                       Align(
@@ -82,7 +129,7 @@ class _SecondState extends State<Second> {
                 height: 150),
             ListTile(
                 title: Text(
-                  '포인트',
+                  '내정보',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -117,6 +164,19 @@ class _SecondState extends State<Second> {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
                     return Notice();
+                  }));
+                }),
+            ListTile(
+                title: Text(
+                  '서비스 이용안내',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return Guide();
                   }));
                 }),
             ListTile(
@@ -168,22 +228,20 @@ class _MyHomePageState extends State<MyHomePage> {
     _markers.add(Marker(
         markerId: MarkerId("1"),
         draggable: true,
-        onTap: () => print("Marker!"),
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: BottomSheetExample(),
+              ),
+            ),
+          );
+        },
         position: LatLng(34.776408495461844, 127.70128473003452)));
-  }
-
-  void _updatePosition(CameraPosition _position) {
-    var m = _markers.firstWhere((p) => p.markerId == MarkerId('1'),
-        orElse: () => null);
-    _markers.remove(m);
-    _markers.add(
-      Marker(
-        markerId: MarkerId('1'),
-        position: LatLng(_position.target.latitude, _position.target.longitude),
-        draggable: true,
-      ),
-    );
-    setState(() {});
   }
 
   @override
@@ -209,47 +267,59 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget buildFloatingSearchBar(BuildContext context) {
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  void _openDrawer() {
-    _drawerKey.currentState.openDrawer();
-  }
-//구글맵 끝
-
-  return FloatingSearchBar(
-    automaticallyImplyBackButton: false,
-    hint: 'Search...',
-    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-    transitionDuration: const Duration(milliseconds: 800),
-    transitionCurve: Curves.easeInOut,
-    physics: const BouncingScrollPhysics(),
-    axisAlignment: isPortrait ? 0.0 : -1.0,
-    openAxisAlignment: 0.0,
-    width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
-    },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
-    key: _drawerKey,
-    transition: CircularFloatingSearchBarTransition(),
-
-    builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
+class BottomSheetExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xff757575),
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
           color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
         ),
-      );
-    },
-  );
+        child: Column(
+          children: <Widget>[
+            Text(
+              '2공학관 주차장',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            Image.asset('image/parkingimage.jpg'),
+            Row(
+              children: [
+                Text(
+                  '주소 :'
+                  '\n시간당 요금 :'
+                  '\n연락처 :',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+            FlatButton(
+              child: Text(
+                '이용하기',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                  return Pay();
+                }));
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

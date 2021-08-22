@@ -45,7 +45,11 @@ dependencies:
   firebase_database: ^7.1.2
   google_maps_flutter: ^2.0.6
   get: ^3.24.0
+<<<<<<< HEAD
   image_picker: ^0.8.3+2
+=======
+  geolocator: ^7.4.0
+>>>>>>> 1d5bd405ebaf775e4caa34ebaee74775725a5c04
 
 dev_dependencies:
   flutter_test:
