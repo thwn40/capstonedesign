@@ -1,10 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/Register_form.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/parking.dart';
 
-class Register extends StatelessWidget {
-  // This widget is the root of your application.
+class Register extends StatefulWidget {
+  final User user;
+  Register(this.user);
+
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,7 +68,8 @@ class Register extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Register_form()));
+                              builder: (context) =>
+                                  Register_form(widget.user)));
                     },
                     child: Text(
                       "거주자우선주차고르기",
@@ -82,7 +92,8 @@ class Register extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Register_form()));
+                              builder: (context) =>
+                                  Register_form(widget.user)));
                     },
                     child: Text(
                       "원룸/빌라형 고르기",

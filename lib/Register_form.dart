@@ -1,12 +1,12 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:myapp/main.dart';
-import 'package:myapp/parking.dart';
+import 'package:image_picker/image_picker.dart';
 
 // class RForm {
 //   String phonenumber;
@@ -31,14 +31,27 @@ import 'package:myapp/parking.dart';
 //   }
 // }
 
-class Register_form extends StatelessWidget {
+class Register_form extends StatefulWidget {
+  final User user;
+  Register_form(this.user);
+  @override
+  _Register_formState createState() => _Register_formState();
+}
+
+class _Register_formState extends State<Register_form> {
   final _phonetextEditingController = TextEditingController();
+
   final _birthtextEditingController = TextEditingController();
+
   final _carnumbertextEditingController = TextEditingController();
+
   final _addresstextEditingController = TextEditingController();
 
   final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
+
   DatabaseReference reference;
+
+  File _image;
 
   @override
   void dispose() {
@@ -51,7 +64,7 @@ class Register_form extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -71,65 +84,103 @@ class Register_form extends StatelessWidget {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Column(
-          children: <Widget>[
-            Text('휴대폰 번호',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Text('휴대폰 번호',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  )),
+              TextField(
+                decoration: InputDecoration(hintText: '   -를 생략해주세요'),
+                controller: _phonetextEditingController,
+              ),
+              Text('주차장 대여 가능 시간',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  )),
+              TextField(
+                decoration: InputDecoration(hintText: '   ex)20:00~24:00'),
+                controller: _birthtextEditingController,
+              ),
+              Text('시간당 이용요금',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  )),
+              TextField(
+                decoration: InputDecoration(hintText: '   ex)800원'),
+                controller: _carnumbertextEditingController,
+              ),
+              Text('주소',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  )),
+              TextField(
+                decoration: InputDecoration(hintText: '   ex)서울시 노원구'),
+                controller: _addresstextEditingController,
+              ),
+              _image == null
+                  ? Text('주차장 사진',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ))
+                  : Image.file(_image),
+              ElevatedButton(onPressed: _getImage, child: Text('사진첨부')),
+              Container(
+                child: (OutlinedButton(
+                  onPressed: () {
+                    final firebaseStorageRef = FirebaseStorage.instance
+                        .ref()
+                        .child('post')
+                        .child('${DateTime.now().millisecondsSinceEpoch}.png');
+
+                    final task = firebaseStorageRef.putFile(
+                      _image,
+                    );
+
+                    task.then((value) {
+                      var downloadUrl = value.ref.getDownloadURL();
+
+                      downloadUrl.then((uri) {
+                        var doc = FirebaseFirestore.instance
+                            .collection('post')
+                            .doc()
+                            .set({
+                          'address': _addresstextEditingController.text,
+                          'phonenumber': _phonetextEditingController.text,
+                          'carnumber': _carnumbertextEditingController.text,
+                          'birth': _birthtextEditingController.text,
+                          'photourl': uri.toString(),
+                          //'email': widget.user.email,
+                        });
+                      });
+                      // 'ID': user.email.text
+                    }).then((onValue) {
+                      Navigator.pop(context);
+                    });
+                    ;
+                    //Respond to button press
+                  },
+                  child: Text("등록하기"),
                 )),
-            TextField(
-              decoration: InputDecoration(hintText: '   -를 생략해주세요'),
-              controller: _phonetextEditingController,
-            ),
-            Text('생년월일',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                )),
-            TextField(
-              decoration: InputDecoration(hintText: '   ex)19970728'),
-              controller: _birthtextEditingController,
-            ),
-            Text('차량번호',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                )),
-            TextField(
-              decoration: InputDecoration(hintText: '   12다3456 (지역명 있으면 포함)'),
-              controller: _carnumbertextEditingController,
-            ),
-            Text('주소',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                )),
-            TextField(
-              decoration: InputDecoration(hintText: '   ex)서울시 노원구'),
-              controller: _addresstextEditingController,
-            ),
-            Container(
-              child: (OutlinedButton(
-                onPressed: () {
-                  FirebaseFirestore.instance.collection('forms').doc().set({
-                    'address': _addresstextEditingController.text,
-                    'phonenumber': _phonetextEditingController.text,
-                    'carnumber': _carnumbertextEditingController.text,
-                    'birth': _birthtextEditingController.text,
-                    // 'ID': user.email.text
-                  }).then((onValue) {
-                    Navigator.pop(context);
-                  });
-                  ;
-                  //Respond to button press
-                },
-                child: Text("등록하기"),
-              )),
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(image.path);
+    });
   }
 }

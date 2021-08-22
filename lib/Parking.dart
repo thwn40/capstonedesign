@@ -1,8 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:myapp/main.dart';
+
 import 'package:myapp/register.dart';
 
-class Parking extends StatelessWidget {
+class Parking extends StatefulWidget {
+  final User user;
+  Parking(this.user);
+
+  @override
+  _ParkingState createState() => _ParkingState();
+}
+
+class _ParkingState extends State<Parking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +31,6 @@ class Parking extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        
-
-
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -37,22 +44,19 @@ class Parking extends StatelessWidget {
                       color: Colors.blue,
                     )),
               ),
-              
               SizedBox(
                 height: 15,
               ),
               TextButton(
-                  child: Text(
-                    '주차장 등록하기',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 15,
-                    ),
-                  ),
+                  child: Text('주차장 등록하기',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 15,
+                      )),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                      return Register();
+                      return Register(widget.user);
                     }));
                   }),
             ])));

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:myapp/mypage.dart';
 
-Widget buildFloatingSearchBar(BuildContext context) {}
-
 class Point extends StatefulWidget {
   final User user;
 

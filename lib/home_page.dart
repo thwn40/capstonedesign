@@ -6,12 +6,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
-import 'package:myapp/settings.dart';
-import 'package:myapp/guide.dart';
+
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
-import 'package:myapp/parking.dart';
-import 'custome_center.dart';
+import 'package:myapp/Parking.dart';
 
 class Second extends StatefulWidget {
   final User user;
@@ -105,7 +103,7 @@ class _SecondState extends State<Second> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Parking();
+                    return Parking(widget.user);
                   }));
                 }),
             ListTile(
@@ -149,6 +147,7 @@ class _SecondState extends State<Second> {
   }
 }
 
+//구글맵 시작
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -157,10 +156,35 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Completer<GoogleMapController> _controller = Completer();
 
-  static final gwanghwamun = CameraPosition(
+  static final chonam = CameraPosition(
     target: LatLng(34.776408495461844, 127.70128473003452),
     zoom: 17,
   );
+
+  List<Marker> _markers = [];
+  @override
+  void initState() {
+    super.initState();
+    _markers.add(Marker(
+        markerId: MarkerId("1"),
+        draggable: true,
+        onTap: () => print("Marker!"),
+        position: LatLng(34.776408495461844, 127.70128473003452)));
+  }
+
+  void _updatePosition(CameraPosition _position) {
+    var m = _markers.firstWhere((p) => p.markerId == MarkerId('1'),
+        orElse: () => null);
+    _markers.remove(m);
+    _markers.add(
+      Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(_position.target.latitude, _position.target.longitude),
+        draggable: true,
+      ),
+    );
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,10 +192,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: GoogleMap(
           mapType: MapType.normal,
-          initialCameraPosition: gwanghwamun,
+          markers: Set.from(_markers),
+          initialCameraPosition: chonam,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
+          myLocationButtonEnabled: false,
           compassEnabled: true,
           zoomGesturesEnabled: true,
           rotateGesturesEnabled: true,
@@ -189,6 +215,7 @@ Widget buildFloatingSearchBar(BuildContext context) {
   void _openDrawer() {
     _drawerKey.currentState.openDrawer();
   }
+//구글맵 끝
 
   return FloatingSearchBar(
     automaticallyImplyBackButton: false,
