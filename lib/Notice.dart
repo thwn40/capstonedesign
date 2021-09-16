@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/main.dart';
 
-class Notice extends StatelessWidget {
+import 'package:myapp/View.dart';
+
+class Notice extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('공지사항')),
-    );
+  State<StatefulWidget> createState() {
+  
   }
 }

@@ -1,11 +1,12 @@
-// import 'dart:html';
-
-import 'dart:convert';
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -13,9 +14,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
-
+import 'package:myapp/services/geolocator_service.dart';
 
 class Second extends StatefulWidget {
+  final locationService = geoLocatorService();
   final User user;
 
   Second(this.user);
@@ -29,6 +31,52 @@ class _SecondState extends State<Second> {
   void initState() {
     // _auth.userChanges().listen((event) => setState(() => user = event));
     super.initState();
+  }
+
+  Widget buildFloatingSearchBar(BuildContext context) {
+    final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    void _openDrawer() {
+      _drawerKey.currentState.openDrawer();
+    }
+
+    return FloatingSearchBar(
+      automaticallyImplyBackButton: false,
+      hint: 'Search...',
+
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 800),
+      transitionCurve: Curves.easeInOut,
+      physics: const BouncingScrollPhysics(),
+      axisAlignment: isPortrait ? 0.0 : -1.0,
+      openAxisAlignment: 0.0,
+      width: isPortrait ? 600 : 500,
+      debounceDelay: const Duration(milliseconds: 500),
+      onQueryChanged: (query) {
+        // Call your model, bloc, controller here.
+      },
+      // Specify a custom transition to be used for
+      // animating between opened and closed stated.
+      key: _drawerKey,
+      transition: CircularFloatingSearchBarTransition(),
+
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            color: Colors.white,
+            elevation: 4.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: Colors.accents.map((color) {
+                return Container(height: 112, color: color);
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -157,50 +205,149 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController controller;
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  static final gwanghwamun = CameraPosition(
-    target: LatLng(34.776408495461844, 127.70128473003452),
-    zoom: 17,
-  );
-
-  List<Marker> _markers = [];
-
+  //  getMarkerData() async {
+  //   FirebaseFirestore.instance
+  //       .collection('parkingdata')
+  //       .get()
+  //       .then((myMockdoc) {
+  //     if (myMockdoc.docs.isNotEmpty) {
+  //       for (int i = 0; i < myMockdoc.docs.length; i++) {
+  //         initMarker(myMockdoc.docs[i].data(), myMockdoc.docs[i].id);
+  //       }
+  //     }
+  //   });
+  // }
   @override
   void initState() {
+    getMarkerData();
     super.initState();
-    _markers.add(Marker(
-        markerId: MarkerId("1"),
-        draggable: true,
-        onTap: ()  {
-            showModalBottomSheet(
+  }
+
+  getMarkerData() {
+    FirebaseFirestore.instance
+        .collection('parkingdata')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        initMarker(doc.data(), doc.id);
+      });
+      
+    });
+  }
+
+  // void initMarker(specify, specifyId) async {
+  //   var markerIdVal = specifyId;
+  //   final MarkerId markerId = MarkerId(markerIdVal);
+  //   final Marker marker = Marker(
+  //       markerId: markerId,
+  //       position: LatLng(
+  //           specify['location'].latitude, specify['location'].longtitude),
+  //       infoWindow: InfoWindow(title: 'shops', snippet: specify['address']));
+  //   setState(() {
+  //     markers[markerId] = marker;
+  //   });
+  // }
+  void initMarker(specify, specifyId) async {
+    var markerIdVal = specifyId;
+    final MarkerId markerId = MarkerId(markerIdVal);
+    final Marker marker = Marker(
+        markerId: markerId,
+        position:
+            LatLng(specify['location'].latitude, specify['location'].longitude),
+        infoWindow: InfoWindow(title: specify['name']),
+        onTap: () {
+          showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: BottomSheetExample(),
+                child: Container(
+      color: Color(0xff757575),
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            Image.asset('image/parkingimage.jpg'),
+            Row(
+              children: [
+                Text(
+                  '주차요금  : '+specify['price']+"\n"
+                  '    운영시간  : '+specify['hours'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                
+              ],
+            ),
+          
+            FlatButton(
+              child: Text(
+                '결제 후 이용',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
               ),
             ),
           );
-          },
-        position: LatLng(34.776408495461844, 127.70128473003452)));
+        });
+    setState(() {
+      markers[markerId] = marker;
+      //print(markerId);
+    });
   }
+
+//   _markers.add(Marker(
+//       markerId: MarkerId("1"),
+//       draggable: true,
+//       onTap: () {
+//         showModalBottomSheet(
+//           context: context,
+//           isScrollControlled: true,
+//           builder: (context) => SingleChildScrollView(
+//             child: Container(
+//               padding: EdgeInsets.only(
+//                   bottom: MediaQuery.of(context).viewInsets.bottom),
+//               child: BottomSheetExample(),
+//             ),
+//           ),
+//         );
+//       },
+//       position: LatLng(34.776408495461844, 127.70128473003452)));
+// }
 
   @override
   Widget build(BuildContext context) {
-      
-    
     return Scaffold(
-      
       body: Center(
         child: GoogleMap(
+          markers: Set<Marker>.of(markers.values),
           mapType: MapType.normal,
-          markers: Set.from(_markers),
-          initialCameraPosition: gwanghwamun,
+          initialCameraPosition: CameraPosition(
+              target: LatLng(34.7373365, 127.7413272), zoom: 12.0),
           onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
+            controller = controller;
           },
           compassEnabled: true,
           zoomGesturesEnabled: true,
@@ -211,50 +358,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-Widget buildFloatingSearchBar(BuildContext context) {
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  void _openDrawer() {
-    _drawerKey.currentState.openDrawer();
-  }
-
-  return FloatingSearchBar(
-    automaticallyImplyBackButton: false,
-    hint: 'Search...',
-    scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-    transitionDuration: const Duration(milliseconds: 800),
-    transitionCurve: Curves.easeInOut,
-    physics: const BouncingScrollPhysics(),
-    axisAlignment: isPortrait ? 0.0 : -1.0,
-    openAxisAlignment: 0.0,
-    width: isPortrait ? 600 : 500,
-    debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
-    },
-    // Specify a custom transition to be used for
-    // animating between opened and closed stated.
-    key: _drawerKey,
-    transition: CircularFloatingSearchBarTransition(),
-
-    builder: (context, transition) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: Colors.accents.map((color) {
-              return Container(height: 112, color: color);
-            }).toList(),
-          ),
-        ),
-      );
-    },
-  );
 }
 
 class BottomSheetExample extends StatelessWidget {
@@ -273,14 +376,9 @@ class BottomSheetExample extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-             Image.asset('image/parkingimage.jpg'
-                  ),
-           
-             
+            Image.asset('image/parkingimage.jpg'),
             Row(
               children: [
-                
-                
                 Text(
                   '시간당 요금  : ',
                   textAlign: TextAlign.center,
@@ -288,10 +386,8 @@ class BottomSheetExample extends StatelessWidget {
                     fontSize: 15,
                   ),
                 ),
-
               ],
             ),
-            
             FlatButton(
               child: Text(
                 '결제 후 이용',
@@ -308,5 +404,3 @@ class BottomSheetExample extends StatelessWidget {
     );
   }
 }
-
-
