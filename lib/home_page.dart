@@ -9,12 +9,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:myapp/Guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
 import 'package:myapp/services/geolocator_service.dart';
+
+import 'Pay.dart';
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
@@ -44,7 +46,6 @@ class _SecondState extends State<Second> {
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
       hint: 'Search...',
-
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,
@@ -115,7 +116,7 @@ class _SecondState extends State<Second> {
                             child: Text(
                               widget.user.email,
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 10.0),
+                                  color: Colors.white, fontSize: 12.0),
                             )),
                       ),
                       Align(
@@ -134,7 +135,7 @@ class _SecondState extends State<Second> {
                 height: 150),
             ListTile(
                 title: Text(
-                  '포인트',
+                  '내정보',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -169,6 +170,19 @@ class _SecondState extends State<Second> {
                   Navigator.push(context,
                       MaterialPageRoute<void>(builder: (BuildContext context) {
                     return Notice();
+                  }));
+                }),
+            ListTile(
+                title: Text(
+                  '서비스 이용안내',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute<void>(builder: (BuildContext context) {
+                    return Guide();
                   }));
                 }),
             ListTile(
@@ -380,7 +394,9 @@ class BottomSheetExample extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '시간당 요금  : ',
+                  '주소 :'
+                  '\n시간당 요금 :'
+                  '\n연락처 :',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -390,12 +406,15 @@ class BottomSheetExample extends StatelessWidget {
             ),
             FlatButton(
               child: Text(
-                '결제 후 이용',
+                '이용하기',
                 style: TextStyle(color: Colors.white),
               ),
               color: Colors.blue,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                  return Pay();
+                }));
               },
             ),
           ],
