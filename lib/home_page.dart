@@ -1,14 +1,15 @@
-// import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/Guide.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:myapp/notice.dart';
+import 'package:myapp/Notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
 import 'package:myapp/Pay.dart';
@@ -55,7 +56,6 @@ class _SecondState extends State<Second> {
       // animating between opened and closed stated.
       key: _drawerKey,
       transition: CircularFloatingSearchBarTransition(),
-
       builder: (context, transition) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -220,7 +220,6 @@ class _MyHomePageState extends State<MyHomePage> {
     target: LatLng(34.776408495461844, 127.70128473003452),
     zoom: 17,
   );
-
   List<Marker> _markers = [];
   @override
   void initState() {
@@ -266,10 +265,24 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+//구글맵 끝
 
-class BottomSheetExample extends StatelessWidget {
+class BottomSheetExample extends StatefulWidget {
+  @override
+  _BottomSheetExampleState createState() => _BottomSheetExampleState();
+}
+
+class _BottomSheetExampleState extends State<BottomSheetExample> {
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('post')
+        .where("address", isEqualTo: "address")
+        .get()
+        .then((QuerySnapshot ds) {
+      ds.docs.forEach((doc) => print(doc["address"]));
+    });
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -294,9 +307,9 @@ class BottomSheetExample extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '주소 :'
-                  '\n시간당 요금 :'
-                  '\n연락처 :',
+                  "공지사항"
+
+                  ,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,

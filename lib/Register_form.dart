@@ -156,7 +156,7 @@ class _Register_formState extends State<Register_form> {
                           'carnumber': _carnumbertextEditingController.text,
                           'birth': _birthtextEditingController.text,
                           'photourl': uri.toString(),
-                          //'email': widget.user.email,
+                          'email': widget.user.email,
                         });
                       });
                       // 'ID': user.email.text
