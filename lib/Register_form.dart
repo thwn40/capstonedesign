@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class Register_form extends StatefulWidget {
   final User user;
   Register_form(this.user);

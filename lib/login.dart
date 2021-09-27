@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
@@ -14,12 +12,6 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-  void _pushPage(BuildContext context, Widget page) {
-    Navigator.of(context) /*!*/ .push(
-      MaterialPageRoute<void>(builder: (_) => page),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,14 +82,7 @@ class _LogInState extends State<LogIn> {
                                       Text('|'),
                                       Expanded(
                                         child: FlatButton(
-                                            onPressed: () {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute<void>(
-                                                      builder: (BuildContext
-                                                          context) {
-                                                return RegisterPage();
-                                              }));
-                                            },
+                                            onPressed: () {},
                                             child: Text('회원가입')),
                                       ),
                                       Text('|'),
