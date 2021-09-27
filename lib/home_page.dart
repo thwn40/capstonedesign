@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/Guide.dart';
@@ -15,7 +12,6 @@ import 'package:myapp/Notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
 import 'package:myapp/services/geolocator_service.dart';
-
 import 'Pay.dart';
 
 class Second extends StatefulWidget {
@@ -31,7 +27,6 @@ class _SecondState extends State<Second> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   void initState() {
-    // _auth.userChanges().listen((event) => setState(() => user = event));
     super.initState();
   }
 
@@ -54,11 +49,7 @@ class _SecondState extends State<Second> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
-      },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
+      onQueryChanged: (query) {},
       key: _drawerKey,
       transition: CircularFloatingSearchBarTransition(),
       builder: (context, transition) {
@@ -233,18 +224,6 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  //  getMarkerData() async {
-  //   FirebaseFirestore.instance
-  //       .collection('parkingdata')
-  //       .get()
-  //       .then((myMockdoc) {
-  //     if (myMockdoc.docs.isNotEmpty) {
-  //       for (int i = 0; i < myMockdoc.docs.length; i++) {
-  //         initMarker(myMockdoc.docs[i].data(), myMockdoc.docs[i].id);
-  //       }
-  //     }
-  //   });
-  // }
   @override
   void initState() {
     getMarkerData();
@@ -262,18 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // void initMarker(specify, specifyId) async {
-  //   var markerIdVal = specifyId;
-  //   final MarkerId markerId = MarkerId(markerIdVal);
-  //   final Marker marker = Marker(
-  //       markerId: markerId,
-  //       position: LatLng(
-  //           specify['location'].latitude, specify['location'].longtitude),
-  //       infoWindow: InfoWindow(title: 'shops', snippet: specify['address']));
-  //   setState(() {
-  //     markers[markerId] = marker;
-  //   });
-  // }
+  bool bToggle = true;
   void initMarker(specify, specifyId) async {
     var markerIdVal = specifyId;
     final MarkerId markerId = MarkerId(markerIdVal);
@@ -282,6 +250,8 @@ class _MyHomePageState extends State<MyHomePage> {
         position:
             LatLng(specify['location'].latitude, specify['location'].longitude),
         infoWindow: InfoWindow(title: specify['name']),
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+            (bToggle) ? BitmapDescriptor.hueBlue : BitmapDescriptor.hueRed),
         onTap: () {
           showModalBottomSheet(
             context: context,
@@ -354,28 +324,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
     setState(() {
       markers[markerId] = marker;
-      //print(markerId);
     });
   }
-
-//   _markers.add(Marker(
-//       markerId: MarkerId("1"),
-//       draggable: true,
-//       onTap: () {
-//         showModalBottomSheet(
-//           context: context,
-//           isScrollControlled: true,
-//           builder: (context) => SingleChildScrollView(
-//             child: Container(
-//               padding: EdgeInsets.only(
-//                   bottom: MediaQuery.of(context).viewInsets.bottom),
-//               child: BottomSheetExample(),
-//             ),
-//           ),
-//         );
-//       },
-//       position: LatLng(34.776408495461844, 127.70128473003452)));
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -411,7 +361,7 @@ class _BottomSheetExampleState extends State<BottomSheetExample> {
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore.instance
-        .collection('post')
+        .collection('sharedata')
         .where("address", isEqualTo: "address")
         .get()
         .then((QuerySnapshot ds) {

@@ -113,7 +113,7 @@ class _Register_formState extends State<Register_form> {
                   onPressed: () {
                     final firebaseStorageRef = FirebaseStorage.instance
                         .ref()
-                        .child('post')
+                        .child('sharedata')
                         .child('${DateTime.now().millisecondsSinceEpoch}.png');
 
                     final task = firebaseStorageRef.putFile(
@@ -125,7 +125,7 @@ class _Register_formState extends State<Register_form> {
 
                       downloadUrl.then((uri) {
                         var doc = FirebaseFirestore.instance
-                            .collection('post')
+                            .collection('sharedata')
                             .doc()
                             .set({
                           'address': _addresstextEditingController.text,
