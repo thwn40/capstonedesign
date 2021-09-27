@@ -394,15 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-<<<<<<< HEAD
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
-=======
   latlong2:
     dependency: transitive
     description:
@@ -417,7 +408,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   matcher:
     dependency: transitive
     description:
@@ -439,57 +429,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-<<<<<<< HEAD
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  package_info_plus:
-    dependency: transitive
-    description:
-      name: package_info_plus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6"
-  package_info_plus_linux:
-    dependency: transitive
-    description:
-      name: package_info_plus_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-  package_info_plus_macos:
-    dependency: transitive
-    description:
-      name: package_info_plus_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
-  package_info_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: package_info_plus_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
-  package_info_plus_web:
-    dependency: transitive
-    description:
-      name: package_info_plus_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
-  package_info_plus_windows:
-    dependency: transitive
-    description:
-      name: package_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-=======
   mgrs_dart:
     dependency: transitive
     description:
@@ -504,7 +443,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   path:
     dependency: transitive
     description:
@@ -561,15 +499,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-<<<<<<< HEAD
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.0"
-=======
   positioned_tap_detector_2:
     dependency: transitive
     description:
@@ -591,7 +520,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.0"
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   quiver:
     dependency: transitive
     description:
@@ -659,9 +587,6 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "0.3.0"
-=======
     version: "0.2.19"
   transparent_image:
     dependency: transitive
@@ -670,7 +595,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   tuple:
     dependency: transitive
     description:
@@ -748,15 +672,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.24"
-<<<<<<< HEAD
-  win32:
-    dependency: transitive
-    description:
-      name: win32
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.9"
-=======
   wkt_parser:
     dependency: transitive
     description:
@@ -764,7 +679,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
->>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   xml:
     dependency: transitive
     description:
