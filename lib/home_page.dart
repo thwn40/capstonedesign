@@ -113,11 +113,26 @@ class _SecondState extends State<Second> {
                                 Navigator.pop(context);
                               }
                             },
-                            child: Text(
+                            child: Column(
+                              children: [
+                                Text(
                               widget.user.email,
+                              textAlign:TextAlign.left,
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 12.0),
-                            )),
+                                  
+                                  color: Colors.white, fontSize: 14),
+                            ),
+                             Text(
+                              "포인트 10000원",
+                              textAlign:TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14),
+                            ),
+                              ],
+                            )
+                        ),
+                            
+                            
                       ),
                       Align(
                           alignment: Alignment.centerRight,
@@ -293,12 +308,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: Column(
           children: <Widget>[
-            Image.asset('image/parkingimage.jpg'),
+            // Image.asset('image/parkingimage.jpg'),
             Row(
               children: [
                 Text(
-                  '주차요금  : '+specify['price']+"\n"
-                  '    운영시간  : '+specify['hours'],
+                  '주차요금  : '+specify['price']+"\n"+
+                  '    이름  : '+specify['name']+"\n"+
+                  '    결제방식  : '+specify['pay']+"\n"+
+                  '    전화번호  : '+specify['phone']+"\n"+
+                  '    도로명주소  : '+specify['roadname']+"\n"+
+                  '    주차면수  : '+specify['spot'],
+                                 
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
