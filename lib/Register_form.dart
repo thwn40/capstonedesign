@@ -6,29 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-
-// class RForm {
-//   String phonenumber;
-//   String birth;
-//   String address;
-//   String carnumber;
-
-//   RForm(this.phonenumber, this.birth, this.address, this.carnumber);
-//   RForm.fromSnapshot(DataSnapshot snapshot)
-//       : phonenumber = snapshot.value['phonenumber'],
-//         birth = snapshot.value['birth'],
-//         address = snapshot.value['address'],
-//         carnumber = snapshot.value['address'];
-
-//   toJson() {
-//     return {
-//       'phonenumber': phonenumber,
-//       'birth': birth,
-//       'address': address,
-//       'carnumber': carnumber,
-//     };
-//   }
-// }
+import 'package:image_picker/image_picker.dart';
 
 class Register_form extends StatefulWidget {
   final User user;
@@ -173,5 +151,13 @@ class _Register_formState extends State<Register_form> {
         ),
       ),
     );
+  }
+
+  Future<void> _getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(image.path);
+    });
   }
 }
