@@ -115,23 +115,19 @@ class _SecondState extends State<Second> {
                             child: Column(
                               children: [
                                 Text(
-                              widget.user.email,
-                              textAlign:TextAlign.left,
-                              style: TextStyle(
-                                  
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                             Text(
-                              "포인트 10000원",
-                              textAlign:TextAlign.left,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 14),
-                            ),
+                                  widget.user.email,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
+                                Text(
+                                  "포인트 10000원",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
                               ],
-                            )
-                        ),
-                            
-                            
+                            )),
                       ),
                       Align(
                           alignment: Alignment.centerRight,
@@ -263,7 +259,6 @@ class _MyHomePageState extends State<MyHomePage> {
       querySnapshot.docs.forEach((doc) {
         initMarker(doc.data(), doc.id);
       });
-      
     });
   }
 
@@ -292,58 +287,69 @@ class _MyHomePageState extends State<MyHomePage> {
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-      color: Color(0xff757575),
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            // Image.asset('image/parkingimage.jpg'),
-            Row(
-              children: [
-                Text(
-                  '주차요금  : '+specify['price']+"\n"+
-                  '    이름  : '+specify['name']+"\n"+
-                  '    결제방식  : '+specify['pay']+"\n"+
-                  '    전화번호  : '+specify['phone']+"\n"+
-                  '    도로명주소  : '+specify['roadname']+"\n"+
-                  '    주차면수  : '+specify['spot'],
-                                 
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: Container(
+                    color: Color(0xff757575),
+                    child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          // Image.asset('image/parkingimage.jpg'),
+                          Row(
+                            children: [
+                              Text(
+                                '이름            : ' +
+                                    specify['name'] +
+                                    "\n" +
+                                    '도로명주소 : ' +
+                                    specify['roadname'] +
+                                    "\n" +
+                                    '주차면수     : ' +
+                                    specify['spot'] +
+                                    "\n" +
+                                    '주차요금     : ' +
+                                    specify['price'] +
+                                    "\n" +
+                                    '결제방식     : ' +
+                                    specify['pay'] +
+                                    "\n" +
+                                    '전화번호     : ' +
+                                    specify['phone'] +
+                                    "\n",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          FlatButton(
+                            child: Text(
+                              '닫기',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            color: Colors.blue,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                      height: 240.0,
+                    ),
                   ),
                 ),
-                
-              ],
-            ),
-          
-            FlatButton(
-              child: Text(
-                '결제 후 이용',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.blue,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-    ),
-              ),
-            ),
+                scrollDirection: Axis.horizontal),
           );
         });
     setState(() {
@@ -429,9 +435,7 @@ class _BottomSheetExampleState extends State<BottomSheetExample> {
             Row(
               children: [
                 Text(
-                  "공지사항"
-
-                  ,
+                  "공지사항",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
