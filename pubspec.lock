@@ -188,6 +188,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
+  flutter_map:
+    dependency: "direct main"
+    description:
+      name: flutter_map
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -226,6 +233,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "9.0.0"
+  geocoder:
+    dependency: "direct main"
+    description:
+      name: geocoder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   geolocator:
     dependency: "direct main"
     description:
@@ -380,6 +394,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+<<<<<<< HEAD
   json_annotation:
     dependency: transitive
     description:
@@ -387,6 +402,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+=======
+  latlong2:
+    dependency: transitive
+    description:
+      name: latlong2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  lists:
+    dependency: transitive
+    description:
+      name: lists
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+>>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   matcher:
     dependency: transitive
     description:
@@ -408,6 +439,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+<<<<<<< HEAD
   nested:
     dependency: transitive
     description:
@@ -457,6 +489,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+=======
+  mgrs_dart:
+    dependency: transitive
+    description:
+      name: mgrs_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+>>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   path:
     dependency: transitive
     description:
@@ -513,6 +561,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+<<<<<<< HEAD
   provider:
     dependency: transitive
     description:
@@ -520,6 +569,29 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+=======
+  positioned_tap_detector_2:
+    dependency: transitive
+    description:
+      name: positioned_tap_detector_2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  proj4dart:
+    dependency: transitive
+    description:
+      name: proj4dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.0"
+>>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   quiver:
     dependency: transitive
     description:
@@ -587,7 +659,18 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.3.0"
+=======
+    version: "0.2.19"
+  transparent_image:
+    dependency: transitive
+    description:
+      name: transparent_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+>>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   tuple:
     dependency: transitive
     description:
@@ -602,6 +685,55 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  unicode:
+    dependency: transitive
+    description:
+      name: unicode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.9"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   vector_math:
     dependency: transitive
     description:
@@ -616,6 +748,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.24"
+<<<<<<< HEAD
   win32:
     dependency: transitive
     description:
@@ -623,6 +756,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.9"
+=======
+  wkt_parser:
+    dependency: transitive
+    description:
+      name: wkt_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+>>>>>>> 0633b1cfc9123498fb1fb986637866028723ec7c
   xml:
     dependency: transitive
     description:
