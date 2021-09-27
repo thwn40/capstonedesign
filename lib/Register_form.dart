@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:image_picker/image_picker.dart';
 
 // class RForm {
 //   String phonenumber;
@@ -174,13 +173,5 @@ class _Register_formState extends State<Register_form> {
         ),
       ),
     );
-  }
-
-  Future<void> _getImage() async {
-    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = File(image.path);
-    });
   }
 }
