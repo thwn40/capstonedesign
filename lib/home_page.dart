@@ -223,10 +223,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  Map<MarkerId, Marker> markers2 = <MarkerId, Marker>{};
 
   @override
   void initState() {
     getMarkerData();
+    getMarkerData2();
     super.initState();
   }
 
@@ -237,6 +239,17 @@ class _MyHomePageState extends State<MyHomePage> {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         initMarker(doc.data(), doc.id);
+      });
+    });
+  }
+
+  getMarkerData2() {
+    FirebaseFirestore.instance
+        .collection('sharedata')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        initMarker2(doc.data(), doc.id);
       });
     });
   }
@@ -257,73 +270,175 @@ class _MyHomePageState extends State<MyHomePage> {
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  color: Color(0xff757575),
                   child: Container(
-                    color: Color(0xff757575),
-                    child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0),
-                        ),
+                    padding: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
                       ),
-                      child: Column(
-                        children: <Widget>[
-                          // Image.asset('image/parkingimage.jpg'),
-                          Row(
-                            children: [
-                              Text(
-                                '이름            : ' +
-                                    specify['name'] +
-                                    "\n" +
-                                    '도로명주소 : ' +
-                                    specify['roadname'] +
-                                    "\n" +
-                                    '주차면수     : ' +
-                                    specify['spot'] +
-                                    "\n" +
-                                    '주차요금     : ' +
-                                    specify['price'] +
-                                    "\n" +
-                                    '결제방식     : ' +
-                                    specify['pay'] +
-                                    "\n" +
-                                    '전화번호     : ' +
-                                    specify['phone'] +
-                                    "\n",
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        // Image.asset('image/parkingimage.jpg'),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '이름 : ' + specify['name'] + "\n",
+                              softWrap: true,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text('도로명주소 : ' + specify['roadname'] + "\n",
+                                softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
+                                )),
+                            Text('주차면수 : ' + specify['spot'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('주차요금 : ' + specify['price'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('결제방식 : ' + specify['pay'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('전화번호 : ' + specify['phone'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                          ],
+                        ),
 
-                          FlatButton(
-                            child: Text(
-                              '닫기',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            color: Colors.blue,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                        FlatButton(
+                          child: Text(
+                            '닫기',
+                            style: TextStyle(color: Colors.white),
                           ),
-                        ],
-                      ),
-                      height: 240.0,
+                          color: Colors.blue,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                scrollDirection: Axis.horizontal),
+              ),
+            ),
           );
         });
     setState(() {
       markers[markerId] = marker;
+    });
+  }
+
+  void initMarker2(specify, specifyId) async {
+    var markerIdVal = specifyId;
+    final MarkerId markerId2 = MarkerId(markerIdVal);
+    final Marker marker2 = Marker(
+        markerId: markerId2,
+        position:
+            LatLng(specify['location'].latitude, specify['location'].longitude),
+        infoWindow: InfoWindow(title: specify['roadname']),
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Container(
+                  color: Color(0xff757575),
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        // Image.asset('image/parkingimage.jpg'),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image.asset('image/parkingimage.jpg')
+                            Image.network(specify['photourl']),
+
+                            Text('도로명주소 : ' + specify['roadname'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('운영시간 : ' + specify['time'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('주차요금 : ' + specify['price'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                            Text('전화번호 : ' + specify['phone'] + "\n",
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                          ],
+                        ),
+
+                        FlatButton(
+                            child: Text(
+                              '이용하기',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            color: Colors.blue,
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute<void>(
+                                  builder: (BuildContext context) {
+                                return Pay();
+                              }));
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+    setState(() {
+      markers[markerId2] = marker2;
     });
   }
 
@@ -335,7 +450,7 @@ class _MyHomePageState extends State<MyHomePage> {
           markers: Set<Marker>.of(markers.values),
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
-              target: LatLng(34.7373365, 127.7413272), zoom: 12.0),
+              target: LatLng(34.77588022750423, 127.7013315559743), zoom: 17),
           onMapCreated: (GoogleMapController controller) {
             controller = controller;
           },
@@ -351,64 +466,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 //구글맵 끝
-
-class BottomSheetExample extends StatefulWidget {
-  @override
-  _BottomSheetExampleState createState() => _BottomSheetExampleState();
-}
-
-class _BottomSheetExampleState extends State<BottomSheetExample> {
-  @override
-  Widget build(BuildContext context) {
-    FirebaseFirestore.instance
-        .collection('sharedata')
-        .where("address", isEqualTo: "address")
-        .get()
-        .then((QuerySnapshot ds) {
-      ds.docs.forEach((doc) => print(doc["address"]));
-    });
-
-    return Container(
-      color: Color(0xff757575),
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            Image.asset('image/parkingimage.jpg'),
-            Row(
-              children: [
-                Text(
-                  "공지사항",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-            FlatButton(
-              child: Text(
-                '이용하기',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.blue,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute<void>(builder: (BuildContext context) {
-                  return Pay();
-                }));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
