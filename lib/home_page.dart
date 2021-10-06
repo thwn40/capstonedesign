@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -14,6 +12,8 @@ import 'package:myapp/parking.dart';
 import 'package:myapp/register.dart';
 import 'package:myapp/services/geolocator_service.dart';
 import 'Pay.dart';
+
+var latitudein, longitudein, locationin;
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
@@ -422,7 +422,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Column(
                       children: <Widget>[
-                        // Image.asset('image/parkingimage.jpg'),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -457,7 +456,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )),
                           ],
                         ),
-
                         FlatButton(
                             child: Text(
                               '이용하기',
@@ -502,17 +500,21 @@ class _MyHomePageState extends State<MyHomePage> {
             scrollGesturesEnabled: true,
             tiltGesturesEnabled: true,
             onTap: (latLng) {
-              double a = latLng.latitude;
-              double b = latLng.latitude;
+              double latitudein = latLng.latitude;
+              double longitudein = latLng.longitude;
+              locationin = [latitudein, longitudein];
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: ElevatedButton(
                     child: Text('공유주차장 등록하기', style: TextStyle(fontSize: 21)),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                        return Register(widget.user);
-                      }));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Register(widget.user),
+                          ));
+                      return locationin;
                     },
                   ),
                 ),

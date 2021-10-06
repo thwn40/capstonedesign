@@ -7,10 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/home_page.dart';
 
 class Register_form extends StatefulWidget {
   final User user;
   Register_form(this.user);
+
   @override
   _Register_formState createState() => _Register_formState();
 }
@@ -134,6 +136,7 @@ class _Register_formState extends State<Register_form> {
                           'time': _timetextEditingController.text,
                           'photourl': uri.toString(),
                           'email': widget.user.email,
+                          'location': GeoPoint(locationin[0], locationin[1])
                         });
                       });
                       // 'ID': user.email.text
