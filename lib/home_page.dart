@@ -14,7 +14,6 @@ import 'package:myapp/parking.dart';
 import 'package:myapp/register.dart';
 import 'package:myapp/services/geolocator_service.dart';
 import 'Pay.dart';
-import 'package:place_picker/place_picker.dart';
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
