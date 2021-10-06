@@ -93,8 +93,8 @@ class _SecondState extends State<Second> {
                         alignment: Alignment.centerLeft,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage('widget.user.photoURL'),
-                          radius: 40.0,
+                          backgroundImage: NetworkImage(widget.user.photoURL),
+                          radius: 35.0,
                         ),
                       ),
                       Align(
@@ -113,7 +113,7 @@ class _SecondState extends State<Second> {
                                   widget.user.email,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 14),
+                                      color: Colors.white, fontSize: 13),
                                 ),
                                 StreamBuilder(
                                     stream: FirebaseFirestore.instance
@@ -146,71 +146,91 @@ class _SecondState extends State<Second> {
                   ),
                 ),
                 height: 150),
-            ListTile(
-                title: Text(
-                  '내정보',
-                  style: TextStyle(
-                    fontSize: 20,
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.account_circle),
+                  title: Text(
+                    '내정보',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Point(widget.user);
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '공유주차장 관리',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Point(widget.user);
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.local_parking),
+                  title: Text(
+                    '공유주차장 관리',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Parking(widget.user);
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '공지사항',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Parking(widget.user);
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.notifications_none),
+                  title: Text(
+                    '공지사항',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Notice();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '서비스 이용안내',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Notice();
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.headset_mic),
+                  title: Text(
+                    '서비스 이용안내',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Guide();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '설정',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Guide();
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.settings),
+                  title: Text(
+                    '설정',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Notice();
-                  }));
-                }),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Notice();
+                    }));
+                  }),
+            ),
           ],
         ),
       ),
@@ -270,6 +290,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+
+
 
   bool bToggle = true;
   void initMarker(specify, specifyId) async {
@@ -404,9 +426,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Image.asset('image/parkingimage.jpg')
-                            Image.network(specify['photourl']),
-
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(specify['photourl'],width: 230,height: 180, fit: BoxFit.fill),
+                            ),
+                            
                             Text('도로명주소 : ' + specify['roadname'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
