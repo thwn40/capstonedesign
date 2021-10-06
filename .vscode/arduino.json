@@ -1,0 +1,5 @@
+{
+    "sketch": "lib\\flap.ino",
+    "board": "arduino:avr:uno",
+    "port": "COM4"
+}

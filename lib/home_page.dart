@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -11,14 +11,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/Notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
+import 'package:myapp/register.dart';
 import 'package:myapp/services/geolocator_service.dart';
 import 'Pay.dart';
+import 'package:place_picker/place_picker.dart';
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
   final User user;
 
   Second(this.user);
+
   @override
   _SecondState createState() => _SecondState();
 }
@@ -92,8 +95,8 @@ class _SecondState extends State<Second> {
                         alignment: Alignment.centerLeft,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage('widget.user.photoURL'),
-                          radius: 40.0,
+                          backgroundImage: NetworkImage(widget.user.photoURL),
+                          radius: 35.0,
                         ),
                       ),
                       Align(
@@ -112,6 +115,7 @@ class _SecondState extends State<Second> {
                                   widget.user.email,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
+<<<<<<< HEAD
                                       color: Colors.white, fontSize: 14),
                                 ),
                                 Text(
@@ -119,7 +123,24 @@ class _SecondState extends State<Second> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 14),
+=======
+                                      color: Colors.white, fontSize: 13),
+>>>>>>> bf215246b6f0d04785c80054e4674784793f6214
                                 ),
+                                StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("users")
+                                        .where('uid', isEqualTo: widget.user.uid)
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      return Text(
+                                        (snapshot.data.docs[0]['point'])
+                                            .toString()
+                                            .replaceAll("\\n", "\n"),
+                                        style: TextStyle(fontSize: 15),
+                                      );
+                                    }),
                               ],
                             )),
                       ),
@@ -137,71 +158,91 @@ class _SecondState extends State<Second> {
                   ),
                 ),
                 height: 150),
-            ListTile(
-                title: Text(
-                  '내정보',
-                  style: TextStyle(
-                    fontSize: 20,
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.account_circle),
+                  title: Text(
+                    '내정보',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Point(widget.user);
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '공유주차장 관리',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Point(widget.user);
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.local_parking),
+                  title: Text(
+                    '공유주차장 관리',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Parking(widget.user);
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '공지사항',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Parking(widget.user);
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.notifications_none),
+                  title: Text(
+                    '공지사항',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Notice();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '서비스 이용안내',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Notice();
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.headset_mic),
+                  title: Text(
+                    '서비스 이용안내',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Guide();
-                  }));
-                }),
-            ListTile(
-                title: Text(
-                  '설정',
-                  style: TextStyle(
-                    fontSize: 20,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Guide();
+                    }));
+                  }),
+            ),
+            Container(
+              decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+              child: ListTile(
+                leading: Icon(Icons.settings),
+                  title: Text(
+                    '설정',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return Notice();
-                  }));
-                }),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return Notice();
+                    }));
+                  }),
+            ),
           ],
         ),
       ),
@@ -209,7 +250,7 @@ class _SecondState extends State<Second> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          MyHomePage(),
+          MyHomePage(widget.user),
           buildFloatingSearchBar(context),
         ],
       ),
@@ -219,8 +260,13 @@ class _SecondState extends State<Second> {
 
 //구글맵 시작
 class MyHomePage extends StatefulWidget {
+  final User user;
+
+  MyHomePage(this.user);
   @override
   _MyHomePageState createState() => _MyHomePageState();
+
+  static void getMarkerData2() {}
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -256,6 +302,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+
+
 
   bool bToggle = true;
   void initMarker(specify, specifyId) async {
@@ -390,9 +438,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Image.asset('image/parkingimage.jpg')
-                            Image.network(specify['photourl']),
-
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(specify['photourl'],width: 230,height: 180, fit: BoxFit.fill),
+                            ),
+                            
                             Text('도로명주소 : ' + specify['roadname'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
@@ -450,20 +500,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Center(
         child: GoogleMap(
-          markers: Set<Marker>.of(markers.values),
-          mapType: MapType.normal,
-          initialCameraPosition: CameraPosition(
-              target: LatLng(34.77588022750423, 127.7013315559743), zoom: 17),
-          onMapCreated: (GoogleMapController controller) {
-            controller = controller;
-          },
-          myLocationButtonEnabled: false,
-          compassEnabled: true,
-          zoomGesturesEnabled: true,
-          rotateGesturesEnabled: true,
-          scrollGesturesEnabled: true,
-          tiltGesturesEnabled: true,
-        ),
+            markers: Set<Marker>.of(markers.values),
+            mapType: MapType.normal,
+            initialCameraPosition: CameraPosition(
+                target: LatLng(34.77588022750423, 127.7013315559743), zoom: 17),
+            onMapCreated: (GoogleMapController controller) {
+              controller = controller;
+            },
+            myLocationButtonEnabled: true,
+            compassEnabled: true,
+            zoomGesturesEnabled: true,
+            rotateGesturesEnabled: true,
+            scrollGesturesEnabled: true,
+            tiltGesturesEnabled: true,
+            onTap: (latLng) {
+              double a = latLng.latitude;
+              double b = latLng.latitude;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: ElevatedButton(
+                    child: Text('공유주차장 등록하기', style: TextStyle(fontSize: 21)),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                        return Register(widget.user);
+                      }));
+                    },
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }
