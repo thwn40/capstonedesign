@@ -5,7 +5,6 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:myapp/register.dart';
 import 'package:provider/provider.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
@@ -16,10 +15,7 @@ import 'package:myapp/notice.dart';
 import 'package:myapp/Point.dart';
 import 'package:myapp/parking.dart';
 
-
 import 'root_page.dart';
-
-
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

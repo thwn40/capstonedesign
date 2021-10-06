@@ -14,7 +14,6 @@ import 'package:myapp/parking.dart';
 import 'package:myapp/register.dart';
 import 'package:myapp/services/geolocator_service.dart';
 import 'Pay.dart';
-import 'package:place_picker/place_picker.dart';
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
@@ -115,22 +114,13 @@ class _SecondState extends State<Second> {
                                   widget.user.email,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-<<<<<<< HEAD
-                                      color: Colors.white, fontSize: 14),
-                                ),
-                                Text(
-                                  '포인트 입력',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 14),
-=======
                                       color: Colors.white, fontSize: 13),
->>>>>>> bf215246b6f0d04785c80054e4674784793f6214
                                 ),
                                 StreamBuilder(
                                     stream: FirebaseFirestore.instance
                                         .collection("users")
-                                        .where('uid', isEqualTo: widget.user.uid)
+                                        .where('uid',
+                                            isEqualTo: widget.user.uid)
                                         .snapshots(),
                                     builder: (context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -161,7 +151,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.account_circle),
+                  leading: Icon(Icons.account_circle),
                   title: Text(
                     '내정보',
                     style: TextStyle(
@@ -169,8 +159,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Point(widget.user);
                     }));
                   }),
@@ -178,7 +168,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.local_parking),
+                  leading: Icon(Icons.local_parking),
                   title: Text(
                     '공유주차장 관리',
                     style: TextStyle(
@@ -186,8 +176,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Parking(widget.user);
                     }));
                   }),
@@ -195,7 +185,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.notifications_none),
+                  leading: Icon(Icons.notifications_none),
                   title: Text(
                     '공지사항',
                     style: TextStyle(
@@ -203,8 +193,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Notice();
                     }));
                   }),
@@ -212,7 +202,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.headset_mic),
+                  leading: Icon(Icons.headset_mic),
                   title: Text(
                     '서비스 이용안내',
                     style: TextStyle(
@@ -220,8 +210,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Guide();
                     }));
                   }),
@@ -229,7 +219,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.settings),
+                  leading: Icon(Icons.settings),
                   title: Text(
                     '설정',
                     style: TextStyle(
@@ -237,8 +227,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Notice();
                     }));
                   }),
@@ -302,8 +292,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
-
-
 
   bool bToggle = true;
   void initMarker(specify, specifyId) async {
@@ -440,9 +428,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.network(specify['photourl'],width: 230,height: 180, fit: BoxFit.fill),
+                              child: Image.network(specify['photourl'],
+                                  width: 230, height: 180, fit: BoxFit.fill),
                             ),
-                            
                             Text('도로명주소 : ' + specify['roadname'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
