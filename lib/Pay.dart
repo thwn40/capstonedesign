@@ -5,6 +5,7 @@ import 'package:myapp/home_page.dart';
 import 'package:myapp/search.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pay extends StatelessWidget {
   @override
@@ -59,7 +60,7 @@ class _CheckBoxInListViewState extends State<CheckBoxInListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('2공학관 주차장'),
+          title: Text('test'),
         ),
         body: Column(
           children: [

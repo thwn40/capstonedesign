@@ -25,6 +25,7 @@ class Second extends StatefulWidget {
 
 class _SecondState extends State<Second> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +38,8 @@ class _SecondState extends State<Second> {
     void _openDrawer() {
       _drawerKey.currentState.openDrawer();
     }
+
+    FirebaseFirestore.instance.collection('user').doc();
 
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
@@ -112,7 +115,7 @@ class _SecondState extends State<Second> {
                                       color: Colors.white, fontSize: 14),
                                 ),
                                 Text(
-                                  "포인트 10000원",
+                                  '포인트 입력',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 14),
