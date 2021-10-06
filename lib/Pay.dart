@@ -51,6 +51,7 @@ class _CheckBoxInListViewState extends State<CheckBoxInListView> {
 
   @override
   void initState() {
+    MyHomePage.getMarkerData2();
     super.initState();
     _isChecked = List<bool>.filled(_texts.length, false);
   }
@@ -105,6 +106,7 @@ class _CheckBoxInListViewState extends State<CheckBoxInListView> {
           ],
         ));
   }
+
 }
 
 class BottomSheetExample extends StatelessWidget {

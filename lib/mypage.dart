@@ -18,8 +18,8 @@ class Mypage extends StatefulWidget {
 class _MypageState extends State<Mypage> {
   final formkey = GlobalKey<FormState>();
 
-  String phonenumber = '';
-  String carnumber = '';
+  String phone = '';
+  String price = '';
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _MypageState extends State<Mypage> {
                         label: "차량번호",
                         onSaved: (val) {
                           setState(() {
-                            this.carnumber = val;
+                            this.price = val;
                           });
                         },
                         validator: (val) {
@@ -81,7 +81,7 @@ class _MypageState extends State<Mypage> {
                         label: "핸드폰번호",
                         onSaved: (val) {
                           setState(() {
-                            this.phonenumber = val;
+                            this.phone = val;
                           });
                         },
                         validator: (val) {
@@ -107,8 +107,8 @@ class _MypageState extends State<Mypage> {
         if (this.formkey.currentState.validate()) {
           this.formkey.currentState.save();
           FirebaseFirestore.instance.collection('forms').doc().set({
-            'phonenumber': '$phonenumber',
-            'carnumber': '$carnumber',
+            'phonen': '$phone',
+            'price': '$price',
             'id': widget.user
             // 'ID': user.email.text
           }).then((onValue) {
@@ -167,6 +167,6 @@ class _MypageState extends State<Mypage> {
   // Widget  _buildBody(){
   //   return StreamBuilder(
   //     stream: FirebaseFirestore.instance.collection('forms').snapshots(),
-      
+
   //     builder: BuildContext context, Async)
-  }
+}

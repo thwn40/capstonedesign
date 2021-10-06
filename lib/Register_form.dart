@@ -18,11 +18,11 @@ class Register_form extends StatefulWidget {
 class _Register_formState extends State<Register_form> {
   final _phonetextEditingController = TextEditingController();
 
-  final _birthtextEditingController = TextEditingController();
+  final _timetextEditingController = TextEditingController();
 
-  final _carnumbertextEditingController = TextEditingController();
+  final _pricetextEditingController = TextEditingController();
 
-  final _addresstextEditingController = TextEditingController();
+  final _roadnametextEditingController = TextEditingController();
 
   final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
 
@@ -33,9 +33,9 @@ class _Register_formState extends State<Register_form> {
   @override
   void dispose() {
     _phonetextEditingController.dispose();
-    _birthtextEditingController.dispose();
-    _carnumbertextEditingController.dispose();
-    _addresstextEditingController.dispose();
+    _timetextEditingController.dispose();
+    _pricetextEditingController.dispose();
+    _roadnametextEditingController.dispose();
   }
 
   @override
@@ -80,7 +80,7 @@ class _Register_formState extends State<Register_form> {
                   )),
               TextField(
                 decoration: InputDecoration(hintText: '   ex)20:00~24:00'),
-                controller: _birthtextEditingController,
+                controller: _timetextEditingController,
               ),
               Text('시간당 이용요금',
                   style: TextStyle(
@@ -89,7 +89,7 @@ class _Register_formState extends State<Register_form> {
                   )),
               TextField(
                 decoration: InputDecoration(hintText: '   ex)800원'),
-                controller: _carnumbertextEditingController,
+                controller: _pricetextEditingController,
               ),
               Text('주소',
                   style: TextStyle(
@@ -98,7 +98,7 @@ class _Register_formState extends State<Register_form> {
                   )),
               TextField(
                 decoration: InputDecoration(hintText: '   ex)서울시 노원구'),
-                controller: _addresstextEditingController,
+                controller: _roadnametextEditingController,
               ),
               _image == null
                   ? Text('주차장 사진',
@@ -128,10 +128,10 @@ class _Register_formState extends State<Register_form> {
                             .collection('sharedata')
                             .doc()
                             .set({
-                          'address': _addresstextEditingController.text,
-                          'phonenumber': _phonetextEditingController.text,
-                          'carnumber': _carnumbertextEditingController.text,
-                          'birth': _birthtextEditingController.text,
+                          'roadname': _roadnametextEditingController.text,
+                          'phone': _phonetextEditingController.text,
+                          'price': _pricetextEditingController.text,
+                          'time': _timetextEditingController.text,
                           'photourl': uri.toString(),
                           'email': widget.user.email,
                         });
