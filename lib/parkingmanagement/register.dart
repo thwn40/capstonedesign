@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:myapp/Register_form.dart';
+import 'package:myapp/parkingmanagement/Register_form.dart';
 import 'package:myapp/main.dart';
-import 'package:myapp/parking.dart';
+
 
 class Register extends StatefulWidget {
   final User user;

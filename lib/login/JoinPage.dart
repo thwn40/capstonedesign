@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/components/custom_text_form_field.dart';
 
-import 'components/custom_elevated_button.dart';
+import '../components/custom_elevated_button.dart';
 
 class JoinPage extends StatelessWidget {
   @override

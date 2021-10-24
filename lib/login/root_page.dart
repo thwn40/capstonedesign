@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/loading_page.dart';
+import 'package:myapp/login/loading_page.dart';
 
 import 'login.dart';
-import 'home_page.dart';
+import '../home_page.dart';
 
 class RootPage extends StatelessWidget {
   @override

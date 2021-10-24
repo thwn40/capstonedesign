@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/main.dart';
+
 import 'package:myapp/home_page.dart';
-import 'package:myapp/search.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'dart:io';
+
 
 class Pay extends StatelessWidget {
   @override
@@ -128,10 +126,9 @@ class BottomSheetExample extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '주차시간 :'
-                  '\n차량번호 :'
-                  '\n보유 포인트 :'
-                  '\n\n 결제 금액 : ',
+                  '주차시간 :',
+                  
+
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 17,

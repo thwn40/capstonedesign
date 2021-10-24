@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 
+
 class Register_form extends StatefulWidget {
   final User user;
   Register_form(this.user);
+
+  
   @override
   _Register_formState createState() => _Register_formState();
 }
@@ -140,7 +143,7 @@ class _Register_formState extends State<Register_form> {
                     }).then((onValue) {
                       Navigator.pop(context);
                     });
-                    ;
+                    
                     //Respond to button press
                   },
                   child: Text("등록하기"),

@@ -6,20 +6,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:myapp/Guide.dart';
+import 'package:myapp/guide/Guide.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:myapp/Notice.dart';
-import 'package:myapp/Point.dart';
-import 'package:myapp/parking.dart';
-import 'package:myapp/register.dart';
-import 'package:myapp/services/geolocator_service.dart';
-import 'Pay.dart';
+import 'package:myapp/notice/Notice.dart';
+import 'package:myapp/mypage/Point.dart';
+import 'package:myapp/parkingmanagement/Parking.dart';
+import 'package:myapp/parkingmanagement/register.dart';
+
+import 'mypage/mypagecreate.dart';
 import 'package:place_picker/place_picker.dart';
 
 class Second extends StatefulWidget {
-  final locationService = geoLocatorService();
   final User user;
-
   Second(this.user);
 
   @override
@@ -82,83 +80,69 @@ class _SecondState extends State<Second> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            Container(
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.cyan,
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(widget.user.photoURL),
-                          radius: 35.0,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(0.2, 0.0),
-                        child: TextButton(
-                            onPressed: () {
-                              //final User user = _auth.currentUser;
-
-                              while (Navigator.canPop(context)) {
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: Column(
-                              children: [
-                                Text(
-                                  widget.user.email,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 13),
-                                ),
-                                StreamBuilder(
-                                    stream: FirebaseFirestore.instance
-                                        .collection("users")
-                                        .where('uid', isEqualTo: widget.user.uid)
-                                        .snapshots(),
-                                    builder: (context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      return Text(
-                                        (snapshot.data.docs[0]['point'])
-                                            .toString()
-                                            .replaceAll("\\n", "\n"),
-                                        style: TextStyle(fontSize: 15),
-                                      );
-                                    }),
-                              ],
-                            )),
-                      ),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: IconButton(
-                            icon: Icon(Icons.exit_to_app),
-                            color: Colors.black,
-                            onPressed: () {
-                              FirebaseAuth.instance.signOut();
-                              _googleSignIn.signOut();
-                            },
-                          ))
-                    ],
-                  ),
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(widget.user.photoURL),
+                radius: 30.0,
+              ),
+              accountName: Text(widget.user.email),
+              accountEmail: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("users")
+                      .where('uid', isEqualTo: widget.user.uid)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    return Text(
+                        ("포인트: ${snapshot.data.docs[0]['point']}원")
+                            .toString()
+                            .replaceAll("\\n", "\n"),
+                        style: TextStyle(
+                          fontSize: 13,
+                        ));
+                  }),
+              otherAccountsPictures: [
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  color: Colors.black,
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    _googleSignIn.signOut();
+                  },
                 ),
-                height: 150),
+              ],
+              decoration: BoxDecoration(
+                  color: Colors.blue[300],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  )),
+            ),
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.account_circle),
+                  leading: Icon(Icons.account_circle),
                   title: Text(
                     '내정보',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
+                  trailing: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Mypage(widget.user)),
+                        );
+                      },
+                      child: Text("추가",
+                          style: TextStyle(
+                            fontSize: 13,
+                          ))),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Point(widget.user);
                     }));
                   }),
@@ -166,7 +150,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.local_parking),
+                  leading: Icon(Icons.local_parking),
                   title: Text(
                     '공유주차장 관리',
                     style: TextStyle(
@@ -174,8 +158,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Parking(widget.user);
                     }));
                   }),
@@ -183,7 +167,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.notifications_none),
+                  leading: Icon(Icons.notifications_none),
                   title: Text(
                     '공지사항',
                     style: TextStyle(
@@ -191,16 +175,16 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
-                      return Notice();
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                      return Notice(widget.user);
                     }));
                   }),
             ),
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.headset_mic),
+                  leading: Icon(Icons.headset_mic),
                   title: Text(
                     '서비스 이용안내',
                     style: TextStyle(
@@ -208,8 +192,8 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
                       return Guide();
                     }));
                   }),
@@ -217,7 +201,7 @@ class _SecondState extends State<Second> {
             Container(
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: ListTile(
-                leading: Icon(Icons.settings),
+                  leading: Icon(Icons.settings),
                   title: Text(
                     '설정',
                     style: TextStyle(
@@ -225,9 +209,9 @@ class _SecondState extends State<Second> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) {
-                      return Notice();
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                      return Notice(widget.user);
                     }));
                   }),
             ),
@@ -261,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Map<MarkerId, Marker> markers2 = <MarkerId, Marker>{};
+  String value1 = 'One';
 
   @override
   void initState() {
@@ -290,8 +275,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
-
-
 
   bool bToggle = true;
   void initMarker(specify, specifyId) async {
@@ -428,9 +411,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.network(specify['photourl'],width: 230,height: 180, fit: BoxFit.fill),
+                              child: Image.network(specify['photourl'],
+                                  width: 230, height: 180, fit: BoxFit.fill),
                             ),
-                            
                             Text('도로명주소 : ' + specify['roadname'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
@@ -460,15 +443,128 @@ class _MyHomePageState extends State<MyHomePage> {
 
                         FlatButton(
                             child: Text(
-                              '이용하기',
+                              '결제 후 이용하기',
                               style: TextStyle(color: Colors.white),
                             ),
                             color: Colors.blue,
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute<void>(
-                                  builder: (BuildContext context) {
-                                return Pay();
-                              }));
+                              Navigator.pop(context);
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) => SingleChildScrollView(
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                        bottom: MediaQuery.of(context)
+                                            .viewInsets
+                                            .bottom),
+                                    child: Container(
+                                      color: Color(0xff757575),
+                                      child: Container(
+                                        padding: EdgeInsets.all(20.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20.0),
+                                            topRight: Radius.circular(20.0),
+                                          ),
+                                        ),
+                                        child: Column(
+                                          children: <Widget>[
+                                            // Image.asset('image/parkingimage.jpg'),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    '도로명주소 : ' +
+                                                        specify['roadname'] +
+                                                        "\n",
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                    )),
+                                                Text(
+                                                    '운영시간 : ' +
+                                                        specify['time'] +
+                                                        "\n",
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                    )),
+                                                Text(
+                                                    '주차요금 : ' +
+                                                        specify['price'] +
+                                                        "\n",
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                    )),
+                                                Text(
+                                                    '전화번호 : ' +
+                                                        specify['phone'] +
+                                                        "\n",
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                    )),
+                                              ],
+                                            ),
+
+                                            DropdownButton<String>(
+      value: value1,
+      icon: const Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (value)
+        
+         
+        => setState(()=> this.value1=value),
+
+      
+      items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    ),
+
+                                            FlatButton(
+                                                child: Text(
+                                                  '결제 후 이용하기',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  // Navigator.push(context, MaterialPageRoute<void>(
+                                                  //     builder: (BuildContext context) {
+                                                  //   return Pay();
+                                                  // }));
+                                                }),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+
+                              // Navigator.push(context, MaterialPageRoute<void>(
+                              //     builder: (BuildContext context) {
+                              //   return Pay();
+                              // }));
                             }),
                       ],
                     ),
@@ -506,8 +602,15 @@ class _MyHomePageState extends State<MyHomePage> {
               double b = latLng.latitude;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: ElevatedButton(
-                    child: Text('공유주차장 등록하기', style: TextStyle(fontSize: 21)),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  backgroundColor: Colors.blue,
+                  duration: const Duration(milliseconds: 700),
+                  content: TextButton(
+                    child:
+                        Text('이곳에 공유주차장 등록하기', style: TextStyle(fontSize: 21)),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute<void>(
                           builder: (BuildContext context) {
@@ -522,4 +625,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//구글맵 끝

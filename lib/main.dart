@@ -1,23 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_builder.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:myapp/register.dart';
-import 'package:provider/provider.dart';
-import 'package:url_strategy/url_strategy.dart';
 
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
-import 'package:myapp/login.dart';
-import 'package:myapp/search.dart';
-
-import 'package:myapp/notice.dart';
-import 'package:myapp/Point.dart';
-import 'package:myapp/parking.dart';
 
 
-import 'root_page.dart';
+
+import 'login/root_page.dart';
 
 
 
@@ -26,36 +15,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-//   setPathUrlStrategy();
-//   MultiProvider(
-//         providers: [
-//           ChangeNotifierProvider<LocalProvider>(create: (BuildContext context) => new LocalProvider()),
-//         ],
-//         child: MaterialApp(
-//           initialRoute: "/",
-//           onGenerateRoute: (RouteSettings path){
-//             if(path.name == '/kakaoAddress'){
-//               return MaterialPageRoute(
-//                   settings: RouteSettings(
-//                     name: '/kakaoAddress'
-//                   ),
-//                   builder: (BuildContext context) => SearchPage()
-//               );
-//             }
-//             return MaterialPageRoute(
-//                 settings: RouteSettings(
-//                   name: '/'
-//                 ),
-//                 builder: (BuildContext context) => Func2()
-//             );
-//           },
-//         ),
-//       )
-//   );
-// }
 
-  // Uncomment this to use the auth emulator for testing
-  // await FirebaseAuth.instance.useEmulator('http://localhost:9099');
   runApp(MyApp());
 }
 

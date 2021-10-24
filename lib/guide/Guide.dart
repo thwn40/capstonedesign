@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/main.dart';
+
 
 class Guide extends StatelessWidget {
   @override
