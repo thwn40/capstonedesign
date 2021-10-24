@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/home_page.dart';
+import 'package:myapp/main.dart';
+import 'package:myapp/search.dart';
+import 'dart:io';
 
 class Register_form extends StatefulWidget {
   final User user;
@@ -141,9 +144,12 @@ class _Register_formState extends State<Register_form> {
                       });
                       // 'ID': user.email.text
                     }).then((onValue) {
-                      Navigator.pop(context);
+                      sleep(const Duration(seconds: 1));
+                      Navigator.push(context, MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                        return Second(widget.user);
+                      }));
                     });
-                    ;
                     //Respond to button press
                   },
                   child: Text("등록하기"),

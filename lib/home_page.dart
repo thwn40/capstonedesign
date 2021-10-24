@@ -13,7 +13,7 @@ import 'package:myapp/register.dart';
 import 'package:myapp/services/geolocator_service.dart';
 import 'Pay.dart';
 
-var latitudein, longitudein, locationin;
+var latitudein, longitudein, locationin, user;
 
 class Second extends StatefulWidget {
   final locationService = geoLocatorService();
