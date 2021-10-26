@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:myapp/home_page.dart';
 
-
 class Pay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,7 @@ class _CheckBoxInListViewState extends State<CheckBoxInListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('2공학관 주차장'),
+          title: Text('test'),
         ),
         body: Column(
           children: [

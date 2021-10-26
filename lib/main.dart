@@ -8,8 +8,6 @@ import 'dart:async';
 
 import 'login/root_page.dart';
 
-
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 Future<void> main() async {

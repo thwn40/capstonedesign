@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -15,7 +13,7 @@ import 'package:myapp/parkingmanagement/register.dart';
 
 import 'mypage/mypagecreate.dart';
 import 'package:place_picker/place_picker.dart';
-
+var latitudein, longitudein, locationin, user;
 class Second extends StatefulWidget {
   final User user;
   Second(this.user);
@@ -39,6 +37,8 @@ class _SecondState extends State<Second> {
     void _openDrawer() {
       _drawerKey.currentState.openDrawer();
     }
+
+    FirebaseFirestore.instance.collection('user').doc();
 
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
@@ -405,7 +405,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Column(
                       children: <Widget>[
-                        // Image.asset('image/parkingimage.jpg'),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -440,7 +439,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )),
                           ],
                         ),
-
                         FlatButton(
                             child: Text(
                               '결제 후 이용하기',
@@ -598,8 +596,10 @@ class _MyHomePageState extends State<MyHomePage> {
             scrollGesturesEnabled: true,
             tiltGesturesEnabled: true,
             onTap: (latLng) {
-              double a = latLng.latitude;
-              double b = latLng.latitude;
+              double latitudein = latLng.latitude;
+              double longitudein = latLng.longitude;
+              locationin = [latitudein, longitudein];
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   behavior: SnackBarBehavior.floating,
@@ -612,10 +612,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     child:
                         Text('이곳에 공유주차장 등록하기', style: TextStyle(fontSize: 21)),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                        return Register(widget.user);
-                      }));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Register(widget.user),
+                          ));
+                      return locationin;
                     },
                   ),
                 ),
