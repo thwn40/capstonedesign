@@ -1,24 +1,24 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.purple,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: HomePage());
-  }
-}
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'Flutter Demo',
+//         theme: ThemeData(
+//           primarySwatch: Colors.purple,
+//           visualDensity: VisualDensity.adaptivePlatformDensity,
+//         ),
+//         home: HomePage());
+//   }
+// }
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,13 +27,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final DBref = FirebaseDatabase.instance.reference();
-  int ledStatus = 0;
+  int flapStatus = 0;
   bool isLoading = false;
 
-  getLEDStatus() async {
-    await DBref.child('LED_STATUS').once().then((DataSnapshot snapshot) {
-      ledStatus = snapshot.value;
-      print(ledStatus);
+  getFlapStatus() async {
+    await DBref.child('flap').once().then((DataSnapshot snapshot) {
+      flapStatus = snapshot.value;
+      print(flapStatus);
     });
 
     setState(() {
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     isLoading = true;
-    getLEDStatus();
+    getFlapStatus();
     super.initState();
   }
 
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             ? CircularProgressIndicator()
             : RaisedButton(
                 child: Text(
-                  ledStatus == 0 ? 'On' : 'Off',
+                  flapStatus == 0 ? 'On' : 'Off',
                 ),
                 onPressed: () {
                   buttonPressed();
@@ -72,16 +72,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   void buttonPressed() {
-    ledStatus == 0
-        ? DBref.child('LED_STATUS').set(1)
-        : DBref.child('LED_STATUS').set(0);
-    if (ledStatus == 0) {
+    flapStatus == 0
+        ? DBref.child('Flap_STATUS').set(1)
+        : DBref.child('Flap_STATUS').set(0);
+    if (flapStatus == 0) {
       setState(() {
-        ledStatus = 1;
+        flapStatus = 1;
       });
     } else {
       setState(() {
-        ledStatus = 0;
+        flapStatus = 0;
       });
     }
   }

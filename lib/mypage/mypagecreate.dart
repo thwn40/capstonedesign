@@ -27,7 +27,7 @@ class _MypageState extends State<Mypage> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
+      child: Scaffold(resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

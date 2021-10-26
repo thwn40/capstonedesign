@@ -9,14 +9,6 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/guide/Guide.dart';
 import 'package:flutter/cupertino.dart';
-<<<<<<< HEAD
-import 'package:myapp/Notice.dart';
-import 'package:myapp/Point.dart';
-import 'package:myapp/parking.dart';
-import 'package:myapp/register.dart';
-import 'package:myapp/services/geolocator_service.dart';
-import 'Pay.dart';
-=======
 import 'package:myapp/notice/Notice.dart';
 import 'package:myapp/mypage/Point.dart';
 import 'package:myapp/parkingmanagement/Parking.dart';
@@ -25,7 +17,6 @@ import 'package:intl/intl.dart';
 
 import 'mypage/mypagecreate.dart';
 import 'package:place_picker/place_picker.dart';
->>>>>>> 9f06c27a7830755016beafb98a200c5bbe49ad75
 
 var latitudein, longitudein, locationin, user;
 String value1 = "30분";
@@ -547,6 +538,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               color:
                                                                   Colors.blue,
                                                               onPressed: () {
+                                                                
                                                                 FirebaseFirestore
                                                                     .instance
                                                                     .collection(
@@ -559,8 +551,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                       (((price1 / 2)
                                                                               .toInt()) *
                                                                           value3),
-                                                                  'uid': widget
-                                                                      .user.uid
+                                                          
                                                                   // 'ID': user.email.text
                                                                 }).then((onValue) {
                                                                
@@ -575,13 +566,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                               .toInt()) *
                                                                           value3)), 
                                                                      
-                                                                  'uid': widget
-                                                                      .user.uid
+                                                                  
                                                                   // 'ID': user.email.text
                                                                 }).then((onValue) {
                                                                    
-                                                                     Navigator.pop(
-                                                                      context);
+                                                                });
+                                                                showDialog(context: context, barrierDismissible: false, builder: (BuildContext context) {
+                                                                  return AlertDialog(
+                                                                    title: Text('팝업 메시지'),
+                                                                    content: SingleChildScrollView(
+                                                                      child: ListBody(
+                                                                        children: <Widget>[
+                                                                          Text('예약이 완료되었습니다.')
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    actions: <Widget>[
+                                                                      FlatButton(
+                                                                        child: Text('확인'),
+                                                                        onPressed: () {
+                                                                          Navigator.of(context).pop();
+                                                                          Navigator.of(context).pop();
+                                                                        }
+                                                                      )
+                                                                    ],
+                                                                  );
                                                                 });
                                                               }),
                                                         ],
