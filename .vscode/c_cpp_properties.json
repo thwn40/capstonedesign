@@ -5,6 +5,7 @@
             "name": "Arduino",
             "compilerPath": "D:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin\\avr-g++",
             "compilerArgs": [
+                "-w",
                 "-std=gnu++11",
                 "-fpermissive",
                 "-fno-exceptions",
@@ -17,7 +18,6 @@
             "includePath": [
                 "D:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                 "D:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard",
-                "D:\\Program Files (x86)\\Arduino\\libraries\\Servo\\src",
                 "d:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "d:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "d:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"

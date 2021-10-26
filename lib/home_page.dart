@@ -121,11 +121,15 @@ class _SecondState extends State<Second> {
                                         .snapshots(),
                                     builder: (context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      return Text(
+                                      return Text('보유 포인트 '+
                                         (snapshot.data.docs[0]['point'])
                                             .toString()
                                             .replaceAll("\\n", "\n"),
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                          height: 3.5),
+                                          
                                       );
                                     }),
                               ],
