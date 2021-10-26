@@ -145,7 +145,7 @@ class _Register_formState extends State<Register_form> {
                       });
                       // 'ID': user.email.text
                     }).then((onValue) {
-                      sleep(const Duration(seconds: 1));
+                      sleep(const Duration(milliseconds: 500));
                       Navigator.push(context, MaterialPageRoute<void>(
                           builder: (BuildContext context) {
                         return Second(widget.user);

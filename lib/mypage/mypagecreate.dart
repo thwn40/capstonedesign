@@ -17,7 +17,7 @@ class _MypageState extends State<Mypage> {
   final formkey = GlobalKey<FormState>();
 
   String phone = '';
-  String price = '';
+  String carnumber = '';
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _MypageState extends State<Mypage> {
               
                 onSaved: (val) {
                   setState(() {
-                    this.price = val;
+                    this.carnumber = val;
                   });
                 },
                 validator: (val) {
@@ -119,7 +119,7 @@ class _MypageState extends State<Mypage> {
               .doc(widget.user.uid)
               .update({
             'phone': '$phone',
-            'price': '$price',
+            'carnumber': '$carnumber',
             'uid': widget.user.uid
             // 'ID': user.email.text
           }).then((onValue) {

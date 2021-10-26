@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -10,10 +13,22 @@ import 'package:myapp/notice/Notice.dart';
 import 'package:myapp/mypage/Point.dart';
 import 'package:myapp/parkingmanagement/Parking.dart';
 import 'package:myapp/parkingmanagement/register.dart';
+import 'package:intl/intl.dart';
 
 import 'mypage/mypagecreate.dart';
 import 'package:place_picker/place_picker.dart';
+
 var latitudein, longitudein, locationin, user;
+String value1 = "30분";
+int value2 = 0;
+
+int value3 = 0;
+int price1 = 0;
+String roadname = "";
+String a = "";
+String uid1 = "";
+int point1 = 0;
+
 class Second extends StatefulWidget {
   final User user;
   Second(this.user);
@@ -94,7 +109,7 @@ class _SecondState extends State<Second> {
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     return Text(
-                        ("포인트: ${snapshot.data.docs[0]['point']}원")
+                        ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
                             .toString()
                             .replaceAll("\\n", "\n"),
                         style: TextStyle(
@@ -245,7 +260,6 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Map<MarkerId, Marker> markers2 = <MarkerId, Marker>{};
-  String value1 = 'One';
 
   @override
   void initState() {
@@ -277,6 +291,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool bToggle = true;
+
   void initMarker(specify, specifyId) async {
     var markerIdVal = specifyId;
     final MarkerId markerId = MarkerId(markerIdVal);
@@ -378,13 +393,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void initMarker2(specify, specifyId) async {
     var markerIdVal = specifyId;
+
     final MarkerId markerId2 = MarkerId(markerIdVal);
+
     final Marker marker2 = Marker(
         markerId: markerId2,
         position:
             LatLng(specify['location'].latitude, specify['location'].longitude),
         infoWindow: InfoWindow(title: specify['roadname']),
         onTap: () {
+          price1 = specify['price'];
+          roadname = specify['roadname'];
+          uid1 = specify['uid1'];
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -425,7 +445,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
-                            Text('주차요금 : ' + specify['price'] + "\n",
+                            Text('주차요금 : ' + specify['price'].toString() + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -469,88 +489,97 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                         child: Column(
                                           children: <Widget>[
-                                            // Image.asset('image/parkingimage.jpg'),
                                             Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                    '도로명주소 : ' +
-                                                        specify['roadname'] +
-                                                        "\n",
+                                                    '주차장 이름 : ' +
+                                                        specify['roadname'],
                                                     softWrap: true,
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                     )),
-                                                Text(
-                                                    '운영시간 : ' +
-                                                        specify['time'] +
-                                                        "\n",
-                                                    softWrap: true,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                    )),
-                                                Text(
-                                                    '주차요금 : ' +
-                                                        specify['price'] +
-                                                        "\n",
-                                                    softWrap: true,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                    )),
-                                                Text(
-                                                    '전화번호 : ' +
-                                                        specify['phone'] +
-                                                        "\n",
-                                                    softWrap: true,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                    )),
+                                                
+                                                StreamBuilder(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection("users")
+                                                        .where('uid',
+                                                            isEqualTo:
+                                                                widget.user.uid)
+                                                        .snapshots(),
+                                                    builder: (context,
+                                                        AsyncSnapshot<
+                                                                QuerySnapshot>
+                                                            snapshot) {
+                                                      int point = snapshot.data
+                                                          .docs[0]['point'];
+                                                      return Column(
+                                                        children: [
+                                                          Text(
+                                                              ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
+                                                                  .toString()
+                                                                  .replaceAll(
+                                                                      "\\n",
+                                                                      "\n"),
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              )),
+                                                          Dropdown(widget.user),
+                                                          FlatButton(
+                                                              child: Text(
+                                                                '구매하기',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              color:
+                                                                  Colors.blue,
+                                                              onPressed: () {
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(widget
+                                                                        .user
+                                                                        .uid)
+                                                                    .update({
+                                                                  'point': point -
+                                                                      (((price1 / 2)
+                                                                              .toInt()) *
+                                                                          value3),
+                                                                  'uid': widget
+                                                                      .user.uid
+                                                                  // 'ID': user.email.text
+                                                                }).then((onValue) {
+                                                               
+                                                                });
+                                                                 FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(uid1)
+                                                                    .update({
+                                                                  'point': FieldValue.increment((((price1 / 2)
+                                                                              .toInt()) *
+                                                                          value3)), 
+                                                                     
+                                                                  'uid': widget
+                                                                      .user.uid
+                                                                  // 'ID': user.email.text
+                                                                }).then((onValue) {
+                                                                   
+                                                                     Navigator.pop(
+                                                                      context);
+                                                                });
+                                                              }),
+                                                        ],
+                                                      );
+                                                    }),
                                               ],
                                             ),
-
-                                            DropdownButton<String>(
-      value: value1,
-      icon: const Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (value)
-        
-         
-        => setState(()=> this.value1=value),
-
-      
-      items: <String>['One', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    ),
-
-                                            FlatButton(
-                                                child: Text(
-                                                  '결제 후 이용하기',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                                color: Colors.blue,
-                                                onPressed: () {
-                                                  // Navigator.push(context, MaterialPageRoute<void>(
-                                                  //     builder: (BuildContext context) {
-                                                  //   return Pay();
-                                                  // }));
-                                                }),
                                           ],
                                         ),
                                       ),
@@ -558,11 +587,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                               );
-
-                              // Navigator.push(context, MaterialPageRoute<void>(
-                              //     builder: (BuildContext context) {
-                              //   return Pay();
-                              // }));
                             }),
                       ],
                     ),
@@ -625,5 +649,98 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
       ),
     );
+  }
+}
+
+class Dropdown extends StatefulWidget {
+  int value2 = 0;
+
+  final User user;
+  Dropdown(this.user);
+
+  @override
+  _DropdownState createState() => _DropdownState();
+}
+
+class _DropdownState extends State<Dropdown> {
+  @override
+  Widget build(BuildContext context) {
+    value3 = value1tovalue2(value1);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("사용시간 : "),
+            DropdownButton<String>(
+              value: value1,
+              iconSize: 24,
+              elevation: 16,
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (value) => setState(() => value1 = value),
+              items: <String>[
+                '30분',
+                '1시간',
+                '1시간 30분',
+                '2시간',
+                '2시간 30분',
+                '3시간',
+                '3시간 30분',
+                '4시간',
+                '4시간 30분',
+                '5시간',
+                '5시간 30분',
+                '6시간',
+                '6시간 30분',
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        value,
+                        style: TextStyle(fontSize: 15),
+                      )),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+        Text("결제금액 : " +
+            ((price1 / 2).toInt() * value1tovalue2(value1)).toString() +
+            "원"),
+      ],
+    );
+  }
+
+  value1tovalue2(value1) {
+    if (value1 == '30분')
+      return value2 = 1;
+    else if (value1 == '1시간')
+      return value2 = 2;
+    else if (value1 == '1시간 30분')
+      return value2 = 3;
+    else if (value1 == '2시간')
+      return value2 = 4;
+    else if (value1 == '2시간 30분')
+      return value2 = 5;
+    else if (value1 == '3시간')
+      return value2 = 6;
+    else if (value1 == '3시간 30분')
+      return value2 = 7;
+    else if (value1 == '4시간')
+      return value2 = 8;
+    else if (value1 == '4시간 30분')
+      return value2 = 9;
+    else if (value1 == '5시간')
+      return value2 = 10;
+    else if (value1 == '5시간 30분')
+      return value2 = 11;
+    else if (value1 == '6시간')
+      return value2 = 12;
+    else if (value1 == '6시간 30분') return value2 = 13;
   }
 }
