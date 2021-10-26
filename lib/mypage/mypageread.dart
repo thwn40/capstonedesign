@@ -104,7 +104,7 @@ class _MypageState extends State<Mypage2> {
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       return Text(
-                          (snapshot.data.docs[0]['phonenumber'])
+                          (snapshot.data.docs[0]['phone'])
                               .toString()
                               .replaceAll("\\n", "\n"),
                           style: TextStyle(

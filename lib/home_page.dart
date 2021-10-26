@@ -501,7 +501,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                     )),
-                                                
                                                 StreamBuilder(
                                                     stream: FirebaseFirestore
                                                         .instance
@@ -550,28 +549,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                       (((price1 / 2)
                                                                               .toInt()) *
                                                                           value3),
-                                                                  'uid': widget
-                                                                      .user.uid
-                                                                  // 'ID': user.email.text
-                                                                }).then((onValue) {
-                                                               
-                                                                });
-                                                                 FirebaseFirestore
+                                                                }).then((onValue) {});
+                                                                FirebaseFirestore
                                                                     .instance
                                                                     .collection(
                                                                         'users')
                                                                     .doc(uid1)
                                                                     .update({
-                                                                  'point': FieldValue.increment((((price1 / 2)
+                                                                  'point': FieldValue.increment(
+                                                                      (((price1 / 2)
                                                                               .toInt()) *
-                                                                          value3)), 
-                                                                     
-                                                                  'uid': widget
-                                                                      .user.uid
+                                                                          value3)),
                                                                   // 'ID': user.email.text
                                                                 }).then((onValue) {
-                                                                   
-                                                                     Navigator.pop(
+                                                                  
+                                                                  Navigator.pop(
                                                                       context);
                                                                 });
                                                               }),
