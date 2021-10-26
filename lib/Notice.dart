@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-
 class Notice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('공지사항')),
       body: Text('포인트기능 추가'),
-      
     );
   }
 }

@@ -2,7 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:myapp/mypage.dart';
+
+import 'package:myapp/mypage/mypagecreate.dart';
+
+import 'mypageread.dart';
+
+
 
 class Point extends StatefulWidget {
   final User user;
@@ -36,8 +41,9 @@ class _PointState extends State<Point> {
           children: [
             SizedBox(
               height: 50,
-              child: Row(children: [
-                TextButton(
+              child: Row(
+                children: [
+                  TextButton(
                     child: Text(
                       "   내 정보",
                       style: TextStyle(
@@ -46,14 +52,14 @@ class _PointState extends State<Point> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                        return Mypage(widget.user);
-                      }));
-
-                      // Icon(Icons.arrow_forward_ios),
-                    }),
-              ]),
+                       Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                      return Mypage2(widget.user);
+                    }));
+                    },
+                  ),
+                ],
+              ),
             ),
             Divider(
               thickness: 1,

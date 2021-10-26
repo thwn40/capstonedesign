@@ -235,37 +235,3 @@ class PopupListItemWidget extends StatelessWidget {
     );
   }
 }
-// TextEditingController searchTextEditingController = TextEditingController();
-// emptyTheTextFormField() {
-//   searchTextEditingController.clear();
-// }
-// AppBar searchPageHeader() {
-//   return AppBar(
-//     title: TextFormField(
-//       controller: searchTextEditingController,
-//       decoration: InputDecoration(
-//         hintText: "지역이나 주차장입력하세요",
-//         hintStyle: TextStyle(
-//           color: Colors.grey,
-//         ),
-//         enabledBorder: UnderlineInputBorder(
-//             borderSide: BorderSide(
-//           color: Colors.grey,
-//         )),
-//         focusedBorder: UnderlineInputBorder(
-//             borderSide: BorderSide(
-//           color: Colors.white,
-//         )),
-//         filled: true,
-//   suffixIcon:IconButton(
-//
-//   icon: Icon(Icons.close),
-//
-//   onPressed: (emptyTheTextFormField)
-//
-//       ),
-//
-//     ),
-//     ),
-//   );
-// }
