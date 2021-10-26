@@ -29,6 +29,7 @@ class _Register_formState extends State<Register_form> {
   final _pricetextEditingController = TextEditingController();
 
   final _roadnametextEditingController = TextEditingController();
+  final _nametextEditingController = TextEditingController();
 
   final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
 
@@ -42,6 +43,7 @@ class _Register_formState extends State<Register_form> {
     _timetextEditingController.dispose();
     _pricetextEditingController.dispose();
     _roadnametextEditingController.dispose();
+    _nametextEditingController.dispose();
   }
 
   @override
@@ -70,14 +72,14 @@ class _Register_formState extends State<Register_form> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Text('휴대폰 번호',
+              Text('주차장이름',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black,
                   )),
               TextField(
-                decoration: InputDecoration(hintText: '   -를 생략해주세요'),
-                controller: _phonetextEditingController,
+                decoration: InputDecoration(hintText: 'ex)주차장이름을 입력하세요'),
+                controller: _nametextEditingController,
               ),
               Text('주차장 대여 가능 시간',
                   style: TextStyle(
@@ -117,6 +119,7 @@ class _Register_formState extends State<Register_form> {
               Container(
                 child: (OutlinedButton(
                   onPressed: () {
+                    
                     final firebaseStorageRef = FirebaseStorage.instance
                         .ref()
                         .child('sharedata')
@@ -125,6 +128,7 @@ class _Register_formState extends State<Register_form> {
                     final task = firebaseStorageRef.putFile(
                       _image,
                     );
+                    
 
                     task.then((value) {
                       var downloadUrl = value.ref.getDownloadURL();
@@ -134,8 +138,17 @@ class _Register_formState extends State<Register_form> {
                             .collection('sharedata')
                             .doc()
                             .set({
+                          'name': _nametextEditingController.text,
                           'roadname': _roadnametextEditingController.text,
-                          'phone': _phonetextEditingController.text,
+                          'phone': FirebaseFirestore.instance
+    .collection('users')
+    .get()
+    .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+            print(doc["phone"]);
+        });
+    })
+,
                           'price': _pricetextEditingController.text,
                           'time': _timetextEditingController.text,
                           'photourl': uri.toString(),

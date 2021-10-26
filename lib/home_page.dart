@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -27,7 +24,8 @@ int price1 = 0;
 String roadname = "";
 String a = "";
 String uid1 = "";
-int point1 = 0;
+int pointpay = 0;
+
 
 class Second extends StatefulWidget {
   final User user;
@@ -391,6 +389,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget isreservation(specify) {
+    if (specify['isreservation'] == true) {
+      return Text("예약중인 주차장입니다",
+          softWrap: true,
+          textAlign: TextAlign.left,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
+    } else {}
+  }
+
   void initMarker2(specify, specifyId) async {
     var markerIdVal = specifyId;
 
@@ -528,6 +535,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               )),
                                                           Dropdown(widget.user),
                                                           FlatButton(
+                                                              disabledColor:
+                                                                  Colors.black,
                                                               child: Text(
                                                                 '구매하기',
                                                                 style: TextStyle(
@@ -549,6 +558,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                       (((price1 / 2)
                                                                               .toInt()) *
                                                                           value3),
+
+                                                                  // 'ID': user.email.text
                                                                 }).then((onValue) {});
                                                                 FirebaseFirestore
                                                                     .instance
@@ -560,12 +571,65 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                       (((price1 / 2)
                                                                               .toInt()) *
                                                                           value3)),
+
                                                                   // 'ID': user.email.text
-                                                                }).then((onValue) {
-                                                                  
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                });
+                                                                }).then((onValue) {});
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'history')
+                                                                    .doc()
+                                                                    .set({
+                                                                  'name' : specify['name'],
+                                                                  'pay': FieldValue.increment(
+                                                                      (((price1 / 2)
+                                                                              .toInt()) *
+                                                                          value3)),
+                                                                  'outuid' :  widget.user.uid,
+                                                                  'inuid' :  uid1,
+                                                                   'outuidpoint' : point -
+                                                                      (((price1 / 2)
+                                                                              .toInt()) *
+                                                                          value3),
+                                                                  'inuidpoint' :  point +
+                                                                      (((price1 / 2)
+                                                                              .toInt()) *
+                                                                          value3),
+                                                                  'time': DateTime.now(),
+
+                                                                  // 'ID': user.email.text
+                                                                }).then((onValue) {});
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    barrierDismissible:
+                                                                        false,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return AlertDialog(
+                                                                        title: Text(
+                                                                            '팝업 메시지'),
+                                                                        content:
+                                                                            SingleChildScrollView(
+                                                                          child:
+                                                                              ListBody(
+                                                                            children: <Widget>[
+                                                                              Text('예약이 완료되었습니다.')
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          FlatButton(
+                                                                              child: Text('확인'),
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop();
+                                                                                Navigator.of(context).pop();
+                                                                              })
+                                                                        ],
+                                                                      );
+                                                                    });
                                                               }),
                                                         ],
                                                       );

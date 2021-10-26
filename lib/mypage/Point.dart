@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'package:myapp/mypage/mypagecreate.dart';
+import 'package:myapp/mypage/uselist.dart';
 
 import 'mypageread.dart';
 
@@ -68,33 +69,23 @@ class _PointState extends State<Point> {
             SizedBox(
               height: 50,
               child: Container(
-                child: Row(
-                  children: [
-                    Text(
-                      "     포인트",
+                alignment: Alignment.centerLeft,
+                child:
+                TextButton(
+                    child: Text(
+                      "   이용내역",
                       style: TextStyle(
+                        // color: Colors.black,
                         fontSize: 20,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey,
-            ),
-            SizedBox(
-              height: 50,
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "     이용내역",
-                  style: TextStyle(
-                    fontSize: 20,
+                    onPressed: () {
+                       Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                      return userlist(widget.user);
+                    }));
+                    },
                   ),
-                  textAlign: TextAlign.left,
-                ),
               ),
             ),
             Divider(
