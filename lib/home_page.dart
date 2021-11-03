@@ -108,6 +108,7 @@ class _SecondState extends State<Second> {
                       .where('uid', isEqualTo: widget.user.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if(snapshot.data == null) {return CircularProgressIndicator();}
                     return Text(
                         ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
                             .toString()
@@ -347,7 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
-                            Text('주차요금 : ' + specify['price'] + "\n",
+                            Text('주차요금 : ' + specify['price'] + "원 \n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -445,7 +446,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
-                            Text('주차요금 : ' + specify['price'].toString() + "\n",
+                            Text('주차요금 : ' + specify['price'].toString() + "원 \n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(

@@ -165,9 +165,11 @@ class _Register_formState extends State<Register_form> {
 
   Future<void> _getImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
+if (image != null) {
+setState(() {
       _image = File(image.path);
     });
+}
+    
   }
 }
