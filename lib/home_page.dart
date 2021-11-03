@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:myapp/flapcontrol.dart';
 import 'package:myapp/guide/Guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/notice/Notice.dart';
@@ -18,7 +19,6 @@ import 'package:place_picker/place_picker.dart';
 var latitudein, longitudein, locationin, user;
 String value1 = "30분";
 int value2 = 0;
-
 int value3 = 0;
 int price1 = 0;
 String roadname = "";
@@ -224,7 +224,7 @@ class _SecondState extends State<Second> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                      return Notice(widget.user);
+                      return FlapControl();
                     }));
                   }),
             ),
