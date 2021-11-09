@@ -14,7 +14,6 @@ import 'package:myapp/parkingmanagement/register.dart';
 import 'package:intl/intl.dart';
 
 import 'mypage/mypagecreate.dart';
-import 'package:place_picker/place_picker.dart';
 
 var latitudein, longitudein, locationin, user;
 String value1 = "30분";
