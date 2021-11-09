@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/flapcontrol.dart';
 import 'package:myapp/home_page.dart';
-
-import 'package:myapp/parkingmanagement/Register_form.dart';
+String parkingname = "";
 
 class userlist extends StatefulWidget {
   final User user;
@@ -64,7 +64,8 @@ class _userlistState extends State<userlist> {
                   stream: FirebaseFirestore.instance
                       .collection(
                         'history',
-                      ).orderBy('time',descending: true)
+                      )
+                      .where("outuid", isEqualTo: widget.user.uid)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -111,7 +112,8 @@ class _userlistState extends State<userlist> {
                   stream: FirebaseFirestore.instance
                       .collection(
                         'history',
-                      ).orderBy('time',descending: true)
+                      )
+                      .where("outuid", isEqualTo: widget.user.uid)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -131,16 +133,21 @@ class _userlistState extends State<userlist> {
                                     children: [
                                       Text(
                                           "        ${ds['name']}              "),
-                                      Text(DateFormat('M-d HH:mm')
-                                          .format(ds['time'].toDate())),
+                                      Text("${DateFormat('MM-d HH:mm').format(ds['time'].toDate())}" +
+                                          "~" +
+                                          "${DateFormat('HH:mm').format(ds['time'].toDate().add(Duration(minutes: ((ds['pay'] / ds['price1']).toInt()) * 30)))}"),
                                     ],
                                   ),
-                                  TextButton(onPressed:  () {
-                       Navigator.push(context, MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                      return ;
-                    }));
-                    }, child: Text("제어"))
+                                  TextButton(
+                                      onPressed: () {
+                                        parkingname = ds['name'];
+                                        Navigator.push(context,
+                                            MaterialPageRoute<void>(builder:
+                                                (BuildContext context) {
+                                          return FlapControl(widget.user);
+                                        }));
+                                      },
+                                      child: Text("제어"))
                                 ],
                               ),
                               Text("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
@@ -150,7 +157,7 @@ class _userlistState extends State<userlist> {
                       );
                   },
                 ),
-                  )
+              )
             ],
           ),
         ),
