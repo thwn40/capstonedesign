@@ -6,12 +6,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/home_page.dart';
-import 'package:myapp/main.dart';
-import 'package:myapp/search.dart';
+
 import 'dart:io';
 
+import 'package:myapp/search.dart';
 
 class Register_form extends StatefulWidget {
   final User user;
@@ -44,6 +45,7 @@ class _Register_formState extends State<Register_form> {
     _pricetextEditingController.dispose();
     _roadnametextEditingController.dispose();
     _nametextEditingController.dispose();
+    _phonetextEditingController.dispose();
   }
 
   @override
@@ -80,6 +82,15 @@ class _Register_formState extends State<Register_form> {
               TextField(
                 decoration: InputDecoration(hintText: 'ex)주차장이름을 입력하세요'),
                 controller: _nametextEditingController,
+              ),
+               Text('핸드폰번호를 입력하세요',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  )),
+              TextField(
+                decoration: InputDecoration(hintText: 'ex)-없이 입력'),
+                controller: _phonetextEditingController,
               ),
               Text('주차장 대여 가능 시간',
                   style: TextStyle(
@@ -119,7 +130,6 @@ class _Register_formState extends State<Register_form> {
               Container(
                 child: (OutlinedButton(
                   onPressed: () {
-                    
                     final firebaseStorageRef = FirebaseStorage.instance
                         .ref()
                         .child('sharedata')
@@ -128,7 +138,6 @@ class _Register_formState extends State<Register_form> {
                     final task = firebaseStorageRef.putFile(
                       _image,
                     );
-                    
 
                     task.then((value) {
                       var downloadUrl = value.ref.getDownloadURL();
@@ -136,23 +145,18 @@ class _Register_formState extends State<Register_form> {
                       downloadUrl.then((uri) {
                         var doc = FirebaseFirestore.instance
                             .collection('sharedata')
-                            .doc()
+                            .doc(_nametextEditingController.text)
                             .set({
                           'name': _nametextEditingController.text,
                           'roadname': _roadnametextEditingController.text,
-                          'phone': FirebaseFirestore.instance
-    .collection('users')
-    .get()
-    .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-            print(doc["phone"]);
-        });
-    })
-,
-                          'price': _pricetextEditingController.text,
+                          'phone': _phonetextEditingController.text,
+                          'price': int.parse(_pricetextEditingController.text),
                           'time': _timetextEditingController.text,
                           'photourl': uri.toString(),
                           'email': widget.user.email,
+                          'uid1': widget.user.uid,
+                          'isreservation' : false,
+                          'currentuseruid' : "",
                           'location': GeoPoint(locationin[0], locationin[1])
                         });
                       });
@@ -178,9 +182,11 @@ class _Register_formState extends State<Register_form> {
 
   Future<void> _getImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
+if (image != null) {
+setState(() {
       _image = File(image.path);
     });
+}
+    
   }
 }
