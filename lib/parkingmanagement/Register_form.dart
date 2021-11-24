@@ -6,23 +6,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/home_page.dart';
 
-import 'dart:io';
-
-import 'package:myapp/search.dart';
-
+// ignore: camel_case_types
 class Register_form extends StatefulWidget {
   final User user;
   Register_form(this.user);
 
   @override
-  _Register_formState createState() => _Register_formState();
+  Register_formState createState() => Register_formState();
 }
 
-class _Register_formState extends State<Register_form> {
+// ignore: camel_case_types
+class Register_formState extends State<Register_form> {
   final _phonetextEditingController = TextEditingController();
 
   final _timetextEditingController = TextEditingController();
@@ -32,6 +29,7 @@ class _Register_formState extends State<Register_form> {
   final _roadnametextEditingController = TextEditingController();
   final _nametextEditingController = TextEditingController();
 
+  // ignore: unused_field
   final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
 
   DatabaseReference reference;
@@ -39,6 +37,7 @@ class _Register_formState extends State<Register_form> {
   File _image;
 
   @override
+  // ignore: must_call_super
   void dispose() {
     _phonetextEditingController.dispose();
     _timetextEditingController.dispose();
@@ -143,6 +142,7 @@ class _Register_formState extends State<Register_form> {
                       var downloadUrl = value.ref.getDownloadURL();
 
                       downloadUrl.then((uri) {
+                        // ignore: unused_local_variable
                         var doc = FirebaseFirestore.instance
                             .collection('sharedata')
                             .doc(_nametextEditingController.text)

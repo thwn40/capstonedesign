@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/flapcontrol.dart';
-import 'package:myapp/home_page.dart';
 String parkingname = "";
 
+// ignore: camel_case_types
 class userlist extends StatefulWidget {
   final User user;
   userlist(this.user);
@@ -15,6 +14,7 @@ class userlist extends StatefulWidget {
   _userlistState createState() => _userlistState();
 }
 
+// ignore: camel_case_types
 class _userlistState extends State<userlist> {
   @override
   Widget build(BuildContext context) {

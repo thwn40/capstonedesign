@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -12,8 +13,8 @@ import 'package:myapp/mypage/Point.dart';
 import 'package:myapp/parkingmanagement/Parking.dart';
 import 'package:myapp/parkingmanagement/register.dart';
 import 'package:intl/intl.dart';
-
 import 'mypage/mypagecreate.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 var latitudein, longitudein, locationin, user;
 String value1 = "30분";
@@ -46,6 +47,7 @@ class _SecondState extends State<Second> {
     final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    // ignore: unused_element
     void _openDrawer() {
       _drawerKey.currentState.openDrawer();
     }
@@ -66,6 +68,7 @@ class _SecondState extends State<Second> {
       onQueryChanged: (query) {},
       key: _drawerKey,
       transition: CircularFloatingSearchBarTransition(),
+      
       builder: (context, transition) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -258,6 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Map<MarkerId, Marker> markers2 = <MarkerId, Marker>{};
+  
 
   @override
   void initState() {
@@ -339,6 +343,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
+                                CupertinoButton(
+                                  child: Text("주소 복사", style: TextStyle(fontFamily: a, color: Colors.white, fontSize: 12)),
+                                  padding: EdgeInsets.zero,
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    Clipboard.setData(ClipboardData(text:specify['roadname']));
+                                    Fluttertoast.showToast(msg: "복사 완료",toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM);
+                                    },
+                                ),
                             Text('주차면수 : ' + specify['spot'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
@@ -366,6 +379,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
 
+                        // ignore: deprecated_member_use
                         FlatButton(
                           child: Text(
                             '닫기',
@@ -446,6 +460,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
+                                CupertinoButton(
+                                  child: Text("주소 복사", style: TextStyle(fontFamily: a, color: Colors.white, fontSize: 12)),
+                                  padding: EdgeInsets.zero,
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    Clipboard.setData(ClipboardData(text:specify['roadname']));
+                                    Fluttertoast.showToast(msg: "복사 완료",toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM);},
+                                ),
                             Text('운영시간 : ' + specify['time'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
@@ -466,6 +488,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )),
                           ],
                         ),
+                        // ignore: deprecated_member_use
                         FlatButton(
                             child: Text(
                               '결제 후 이용하기',
@@ -489,6 +512,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           ),
                                         ),
                                         actions: <Widget>[
+                                          // ignore: deprecated_member_use
                                           FlatButton(
                                               child: Text('확인'),
                                               onPressed: () {
@@ -562,6 +586,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                 )),
                                                             Dropdown(
                                                                 widget.user),
+                                                            // ignore: deprecated_member_use
                                                             FlatButton(
                                                                 disabledColor:
                                                                     Colors
@@ -584,7 +609,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                           .uid)
                                                                       .update({
                                                                     'point': point -
-                                                                        (((price1 / 2).toInt()) *
+                                                                        (((price1 ~/ 2).toInt()) *
                                                                             value3),
                                                                     'reservationparking':
                                                                         true,
@@ -596,7 +621,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                           'users')
                                                                       .doc(uid1)
                                                                       .update({
-                                                                    'point': FieldValue.increment((((price1 /
+                                                                    'point': FieldValue.increment((((price1 ~/
                                                                                 2)
                                                                             .toInt()) *
                                                                         value3)),
@@ -611,7 +636,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                       .set({
                                                                     'name': specify[
                                                                         'name'],
-                                                                    'pay': FieldValue.increment((((price1 /
+                                                                    'pay': FieldValue.increment((((price1 ~/
                                                                                 2)
                                                                             .toInt()) *
                                                                         value3)),
@@ -622,10 +647,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                     'inuid':
                                                                         uid1,
                                                                     'outuidpoint': point -
-                                                                        (((price1 / 2).toInt()) *
+                                                                        (((price1 ~/ 2).toInt()) *
                                                                             value3),
                                                                     'inuidpoint': point +
-                                                                        (((price1 / 2).toInt()) *
+                                                                        (((price1 ~/ 2).toInt()) *
                                                                             value3),
                                                                     'time':
                                                                         DateTime
@@ -673,6 +698,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                           ),
                                                                           actions: <
                                                                               Widget>[
+                                                                            // ignore: deprecated_member_use
                                                                             FlatButton(
                                                                                 child: Text('확인'),
                                                                                 onPressed: () {
@@ -723,6 +749,7 @@ class _MyHomePageState extends State<MyHomePage> {
               controller = controller;
             },
             myLocationButtonEnabled: true,
+            myLocationEnabled: true,
             compassEnabled: true,
             zoomGesturesEnabled: true,
             rotateGesturesEnabled: true,
@@ -761,6 +788,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// ignore: must_be_immutable
 class Dropdown extends StatefulWidget {
   int value2 = 0;
 
@@ -819,7 +847,7 @@ class _DropdownState extends State<Dropdown> {
           ],
         ),
         Text("결제금액 : " +
-            ((price1 / 2).toInt() * value1tovalue2(value1)).toString() +
+            ((price1 ~/ 2).toInt() * value1tovalue2(value1)).toString() +
             "원"),
       ],
     );

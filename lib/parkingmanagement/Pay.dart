@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:myapp/home_page.dart';
 
 class Pay extends StatelessWidget {
@@ -83,6 +81,7 @@ class _CheckBoxInListViewState extends State<CheckBoxInListView> {
               ),
             ),
             Container(
+              // ignore: deprecated_member_use
               child: RaisedButton(
                 child: Text('결제하기'),
                 onPressed: () {
@@ -135,6 +134,7 @@ class BottomSheetExample extends StatelessWidget {
                 ),
               ],
             ),
+            // ignore: deprecated_member_use
             FlatButton(
                 child: Text(
                   '구매하기',
