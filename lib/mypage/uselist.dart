@@ -92,14 +92,14 @@ class _userlistState extends State<userlist> {
                                   Column(
                                     children: [
                                       Text(
-                                          "                             결제한 금액: ${ds['pay'].toString()}원"),
+                                          "           결제한 금액: ${ds['pay'].toString()}원"),
                                       Text(
-                                          "                                남은 포인트: ${ds['outuidpoint'].toString()}원"),
+                                          "           남은 포인트: ${ds['outuidpoint'].toString()}원"),
                                     ],
                                   ),
                                 ],
                               ),
-                              Text("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+                              Text("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
                             ],
                           );
                         },
@@ -150,7 +150,7 @@ class _userlistState extends State<userlist> {
                                       child: Text("제어"))
                                 ],
                               ),
-                              Text("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+                              Text("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
                             ],
                           );
                         },
