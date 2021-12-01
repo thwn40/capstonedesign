@@ -109,6 +109,7 @@ class _MypageState extends State<Mypage> {
   }
 
   renderSubmitButton() {
+    // ignore: deprecated_member_use
     return RaisedButton(
       color: Colors.blue,
       onPressed: () {

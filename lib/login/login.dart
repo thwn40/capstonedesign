@@ -15,7 +15,6 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -61,6 +60,7 @@ class _LogInState extends State<LogIn> {
                                     obscureText: true,
                                   ),
                                   SizedBox(height: 40),
+                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                     child: Text('로그인',
                                         style: TextStyle(fontSize: 21)),
@@ -75,18 +75,21 @@ class _LogInState extends State<LogIn> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Expanded(
+                                        // ignore: deprecated_member_use
                                         child: FlatButton(
                                             onPressed: () {},
                                             child: Text('ID/PW 찾기')),
                                       ),
                                       Text('|'),
                                       Expanded(
+                                        // ignore: deprecated_member_use
                                         child: FlatButton(
                                             onPressed: () {},
                                             child: Text('회원가입')),
                                       ),
                                       Text('|'),
                                       Expanded(
+                                        // ignore: deprecated_member_use
                                         child: FlatButton(
                                             onPressed: () {},
                                             child: Text('비로그인 둘러보기')),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -12,9 +13,8 @@ import 'package:myapp/mypage/Point.dart';
 import 'package:myapp/parkingmanagement/Parking.dart';
 import 'package:myapp/parkingmanagement/register.dart';
 import 'package:intl/intl.dart';
-
 import 'mypage/mypagecreate.dart';
-import 'package:place_picker/place_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 var latitudein, longitudein, locationin, user;
 String value1 = "30분";
@@ -46,6 +46,7 @@ class _SecondState extends State<Second> {
     final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    // ignore: unused_element
     void _openDrawer() {
       _drawerKey.currentState.openDrawer();
     }
@@ -105,6 +106,9 @@ class _SecondState extends State<Second> {
                       .where('uid', isEqualTo: widget.user.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.data == null) {
+                      return CircularProgressIndicator();
+                    }
                     return Text(
                         ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
                             .toString()
@@ -338,13 +342,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
+                            CupertinoButton(
+                              child: Text("주소 복사",
+                                  style: TextStyle(
+                                      fontFamily: a,
+                                      color: Colors.white,
+                                      fontSize: 12)),
+                              padding: EdgeInsets.zero,
+                              color: Colors.black,
+                              onPressed: () {
+                                Clipboard.setData(
+                                    ClipboardData(text: specify['roadname']));
+                                Fluttertoast.showToast(
+                                    msg: "복사 완료",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM);
+                              },
+                            ),
                             Text('주차면수 : ' + specify['spot'] + "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
-                            Text('주차요금 : ' + specify['price'] + "\n",
+                            Text('주차요금 : ' + specify['price'] + "원 \n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -365,6 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
 
+                        // ignore: deprecated_member_use
                         FlatButton(
                           child: Text(
                             '닫기',
@@ -430,6 +452,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -454,7 +477,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text(
                                 '주차요금 : ' +
                                     specify['price'].toString() +
-                                    '원' "\n",
+                                    "원 \n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -468,237 +491,266 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )),
                           ],
                         ),
-                        FlatButton(
-                            child: Text(
-                              '결제 후 이용하기',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            color: Colors.blue,
-                            onPressed: () {
-                              if (specify['isreservation'] == true) {
-                                Navigator.pop(context);
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('팝업 메시지'),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: <Widget>[
-                                              Text('이미 예약이 된 주차장입니다')
-                                            ],
-                                          ),
-                                        ),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                              child: Text('확인'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              })
-                                        ],
-                                      );
-                                    });
-                              } else {
-                                Navigator.pop(context);
-                                showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (context) => SingleChildScrollView(
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                              .viewInsets
-                                              .bottom),
-                                      child: Container(
-                                        color: Color(0xff757575),
-                                        child: Container(
-                                          padding: EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20.0),
-                                              topRight: Radius.circular(20.0),
+                        // ignore: deprecated_member_use
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FlatButton(
+                                child: Text(
+                                  '결제 후 이용하기',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                color: Colors.blue,
+                                onPressed: () {
+                                  if (specify['isreservation'] == true) {
+                                    Navigator.pop(context);
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text('팝업 메시지'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text('이미 예약이 된 주차장입니다')
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      '주차장 이름 : ' +
-                                                          specify['roadname'],
-                                                      softWrap: true,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                      )),
-                                                  StreamBuilder(
-                                                      stream: FirebaseFirestore
-                                                          .instance
-                                                          .collection("users")
-                                                          .where('uid',
-                                                              isEqualTo: widget
-                                                                  .user.uid)
-                                                          .snapshots(),
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  QuerySnapshot>
-                                                              snapshot) {
-                                                        int point = snapshot
-                                                            .data
-                                                            .docs[0]['point'];
-                                                        return Column(
-                                                          children: [
-                                                            Text(
-                                                                ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
-                                                                    .toString()
-                                                                    .replaceAll(
-                                                                        "\\n",
-                                                                        "\n"),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                )),
-                                                            Dropdown(
-                                                                widget.user),
-                                                            FlatButton(
-                                                                disabledColor:
-                                                                    Colors
-                                                                        .black,
-                                                                child: Text(
-                                                                  '구매하기',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
-                                                                color:
-                                                                    Colors.blue,
-                                                                onPressed: () {
-                                                                  FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'users')
-                                                                      .doc(widget
+                                            actions: <Widget>[
+                                              // ignore: deprecated_member_use
+                                              FlatButton(
+                                                  child: Text('확인'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  }),
+                                            ],
+                                          );
+                                        });
+                                  } else {
+                                    Navigator.pop(context);
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      builder: (context) =>
+                                          SingleChildScrollView(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom),
+                                          child: Container(
+                                            color: Color(0xff757575),
+                                            child: Container(
+                                              padding: EdgeInsets.all(20.0),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(20.0),
+                                                  topRight:
+                                                      Radius.circular(20.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                          '주차장 이름 : ' +
+                                                              specify[
+                                                                  'roadname'],
+                                                          softWrap: true,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                            fontSize: 15,
+                                                          )),
+                                                      StreamBuilder(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  "users")
+                                                              .where('uid',
+                                                                  isEqualTo:
+                                                                      widget
                                                                           .user
                                                                           .uid)
-                                                                      .update({
-                                                                    'point': point -
-                                                                        (((price1 / 2).toInt()) *
-                                                                            value3),
-                                                                    'reservationparking':
-                                                                        true,
-                                                                    // 'ID': user.email.text
-                                                                  }).then((onValue) {});
-                                                                  FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'users')
-                                                                      .doc(uid1)
-                                                                      .update({
-                                                                    'point': FieldValue.increment((((price1 /
-                                                                                2)
-                                                                            .toInt()) *
-                                                                        value3)),
+                                                              .snapshots(),
+                                                          builder: (context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot) {
+                                                            int point = snapshot
+                                                                    .data
+                                                                    .docs[0]
+                                                                ['point'];
+                                                            return Column(
+                                                              children: [
+                                                                Text(
+                                                                    ("포인트: ${NumberFormat('###,###,###,###').format(snapshot.data.docs[0]['point'])}원")
+                                                                        .toString()
+                                                                        .replaceAll(
+                                                                            "\\n",
+                                                                            "\n"),
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          15,
+                                                                    )),
+                                                                Dropdown(widget
+                                                                    .user),
+                                                                // ignore: deprecated_member_use
+                                                                FlatButton(
+                                                                    disabledColor:
+                                                                        Colors
+                                                                            .black,
+                                                                    child: Text(
+                                                                      '구매하기',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                    color: Colors
+                                                                        .blue,
+                                                                    onPressed:
+                                                                        () {
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'users')
+                                                                          .doc(widget
+                                                                              .user
+                                                                              .uid)
+                                                                          .update({
+                                                                        'point':
+                                                                            point -
+                                                                                (((price1 ~/ 2).toInt()) * value3),
+                                                                        'reservationparking':
+                                                                            true,
+                                                                        // 'ID': user.email.text
+                                                                      }).then((onValue) {});
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'users')
+                                                                          .doc(
+                                                                              uid1)
+                                                                          .update({
+                                                                        'point':
+                                                                            FieldValue.increment((((price1 ~/ 2).toInt()) *
+                                                                                value3)),
 
-                                                                    // 'ID': user.email.text
-                                                                  }).then((onValue) {});
-                                                                  FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'history')
-                                                                      .doc()
-                                                                      .set({
-                                                                    'name': specify[
-                                                                        'name'],
-                                                                    'pay': FieldValue.increment((((price1 /
-                                                                                2)
-                                                                            .toInt()) *
-                                                                        value3)),
-                                                                    'outuid':
-                                                                        widget
+                                                                        // 'ID': user.email.text
+                                                                      }).then((onValue) {});
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'history')
+                                                                          .doc()
+                                                                          .set({
+                                                                        'name':
+                                                                            specify['name'],
+                                                                        'pay': FieldValue.increment((((price1 ~/ 2).toInt()) *
+                                                                            value3)),
+                                                                        'outuid': widget
                                                                             .user
                                                                             .uid,
-                                                                    'inuid':
-                                                                        uid1,
-                                                                    'outuidpoint': point -
-                                                                        (((price1 / 2).toInt()) *
-                                                                            value3),
-                                                                    'inuidpoint': point +
-                                                                        (((price1 / 2).toInt()) *
-                                                                            value3),
-                                                                    'time':
-                                                                        DateTime
-                                                                            .now(),
-                                                                    'price1':
-                                                                        price1,
+                                                                        'inuid':
+                                                                            uid1,
+                                                                        'outuidpoint':
+                                                                            point -
+                                                                                (((price1 ~/ 2).toInt()) * value3),
+                                                                        'inuidpoint':
+                                                                            point +
+                                                                                (((price1 ~/ 2).toInt()) * value3),
+                                                                        'time':
+                                                                            DateTime.now(),
+                                                                        'price1':
+                                                                            price1,
 
-                                                                    // 'ID': user.email.text
-                                                                  }).then((onValue) {});
-                                                                  FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'sharedata')
-                                                                      .doc(specify[
-                                                                          'name'])
-                                                                      .update({
-                                                                    'isreservation':
-                                                                        true,
-                                                                    'currentuseruid':
-                                                                        widget
+                                                                        // 'ID': user.email.text
+                                                                      }).then((onValue) {});
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'sharedata')
+                                                                          .doc(specify[
+                                                                              'name'])
+                                                                          .update({
+                                                                        'isreservation':
+                                                                            true,
+                                                                        'currentuseruid': widget
                                                                             .user
                                                                             .uid
 
-                                                                    // 'ID': user.email.text
-                                                                  }).then((onValue) {});
-                                                                  showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      barrierDismissible:
-                                                                          false,
-                                                                      builder:
-                                                                          (BuildContext
-                                                                              context) {
-                                                                        return AlertDialog(
-                                                                          title:
-                                                                              Text('팝업 메시지'),
-                                                                          content:
-                                                                              SingleChildScrollView(
-                                                                            child:
-                                                                                ListBody(
-                                                                              children: <Widget>[
-                                                                                Text('예약이 완료되었습니다.')
+                                                                        // 'ID': user.email.text
+                                                                      }).then((onValue) {});
+                                                                      showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          barrierDismissible:
+                                                                              false,
+                                                                          builder:
+                                                                              (BuildContext context) {
+                                                                            return AlertDialog(
+                                                                              title: Text('팝업 메시지'),
+                                                                              content: SingleChildScrollView(
+                                                                                child: ListBody(
+                                                                                  children: <Widget>[
+                                                                                    Text('예약이 완료되었습니다.')
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                              actions: <Widget>[
+                                                                                // ignore: deprecated_member_use
+                                                                                FlatButton(
+                                                                                    child: Text('확인'),
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                      Navigator.of(context).pop();
+                                                                                    })
                                                                               ],
-                                                                            ),
-                                                                          ),
-                                                                          actions: <
-                                                                              Widget>[
-                                                                            FlatButton(
-                                                                                child: Text('확인'),
-                                                                                onPressed: () {
-                                                                                  Navigator.of(context).pop();
-                                                                                  Navigator.of(context).pop();
-                                                                                })
-                                                                          ],
-                                                                        );
-                                                                      });
-                                                                }),
-                                                          ],
-                                                        );
-                                                      }),
+                                                                            );
+                                                                          });
+                                                                    }),
+                                                              ],
+                                                            );
+                                                          }),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            }),
+                                    );
+                                  }
+                                }),
+                            SizedBox(child: Text("                    ")),
+                            CupertinoButton(
+                              child: Text("네비 켜기",
+                                  style: TextStyle(
+                                      fontFamily: a,
+                                      color: Colors.white,
+                                      fontSize: 12)),
+                              padding: EdgeInsets.zero,
+                              color: Colors.black,
+                              onPressed: () {
+                                Clipboard.setData(
+                                    ClipboardData(text: specify['roadname']));
+                                Fluttertoast.showToast(
+                                    msg: "복사 완료",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM);
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -724,6 +776,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onMapCreated: (GoogleMapController controller) async {
               controller = controller;
             },
+            myLocationButtonEnabled: true,
             myLocationEnabled: true,
             compassEnabled: true,
             zoomGesturesEnabled: true,
@@ -763,6 +816,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// ignore: must_be_immutable
 class Dropdown extends StatefulWidget {
   int value2 = 0;
 
@@ -821,7 +875,7 @@ class _DropdownState extends State<Dropdown> {
           ],
         ),
         Text("결제금액 : " +
-            ((price1 / 2).toInt() * value1tovalue2(value1)).toString() +
+            ((price1 ~/ 2).toInt() * value1tovalue2(value1)).toString() +
             "원"),
       ],
     );

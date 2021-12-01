@@ -8,6 +8,7 @@ import 'dart:async';
 
 import 'login/root_page.dart';
 
+// ignore: unused_element
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 Future<void> main() async {
