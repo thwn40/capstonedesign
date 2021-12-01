@@ -26,7 +26,6 @@ String a = "";
 String uid1 = "";
 int pointpay = 0;
 
-
 class Second extends StatefulWidget {
   final User user;
   Second(this.user);
@@ -452,7 +451,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 15,
                                 )),
-                            Text('주차요금 : ' + specify['price'].toString() + "\n",
+                            Text(
+                                '주차요금 : ' +
+                                    specify['price'].toString() +
+                                    '원' "\n",
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -719,10 +721,10 @@ class _MyHomePageState extends State<MyHomePage> {
             mapType: MapType.normal,
             initialCameraPosition: CameraPosition(
                 target: LatLng(34.77588022750423, 127.7013315559743), zoom: 17),
-            onMapCreated: (GoogleMapController controller) {
+            onMapCreated: (GoogleMapController controller) async {
               controller = controller;
             },
-            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
             compassEnabled: true,
             zoomGesturesEnabled: true,
             rotateGesturesEnabled: true,

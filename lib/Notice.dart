@@ -18,8 +18,8 @@ class Notice extends StatelessWidget {
 
 
 
-// // class Func2 extends StatefulWidget {
-// //   @override
+// class Func2 extends StatefulWidget {
+//   @override
 //   _Func2State createState() => _Func2State();
 // }
 
